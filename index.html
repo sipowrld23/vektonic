@@ -1,10 +1,35 @@
-Harika detaylar! İstediğin gibi:
+Harika tasarımlar! Görseller kare (`1:1`) formatında olduğu için portföy ızgarasını bunlara göre ayarlamak ve tıklanınca tam ekran açılacak (lightbox/modal) bir yapı kurmak harika duracaktır.
 
-1. Menü elemanları **üst ortama** hizalandı ve her biri belirgin **şık birer buton** haline getirildi (mouse üzerine gelince parlıyor, hafifçe büyüyor ve yumuşak bir gölge/efekt alıyor).
-2. Sol üstteki **logo yaklaşık 2 kat büyütüldü** ve üzerine tıklandığında hangi sayfada olursan ol seni akıcı bir şekilde **Ana Sayfa**'ya yönlendiriyor.
-3. Kodun tamamı temiz ve eksiksiz bir şekilde hazırlandı.
+Bu görselleri sitede göstermek için yapman gereken **2 basit adım** var:
 
-Aşağıdaki **tam `index.html` kodunu** kopyalayıp GitHub'daki `index.html` dosyasına yapıştırman ve kaydetmen yeterlidir:
+---
+
+### Step 1: Görselleri GitHub Reposuna Yükle
+
+1. GitHub'daki `vektonic` depona git.
+2. **Add file** -> **Upload files** seçeneğine tıkla.
+3. Ekran görüntüsündeki şu 5 dosyayı seçip yükle ve kaydet (Commit changes):
+* `1.jpg`
+* `2.png`
+* `3.jpg`
+* `4.jpg`
+* `5.jpg`
+
+
+
+*(Dosyaları doğrudan ana dizine, yani `index.html` ile aynı yere yüklemen yeterli).*
+
+---
+
+### Step 2: `index.html` Kodunu Güncelle
+
+Aşağıdaki güncellenmiş kodda:
+
+* **Graphic Design Showcase** alanına bu 5 görsel yerleştirildi.
+* Görsel kartları kare (`aspect-ratio: 1 / 1`) oranına çekildi ve üzerlerine gelindiğinde büyüme (hover) efekti eklendi.
+* **Lightbox Özelliği Eklendi:** Herhangi bir görsele tıklandığında ekran kararıp görsel **tam ekran / büyük boyutta** açılır, dışarıya veya çarpı (X) butonuna basınca kapanır.
+
+Bu kodun tamamını kopyalayıp GitHub'daki `index.html` dosyanın içine yapıştırıp kaydetmen yeterli:
 
 ```html
 <!DOCTYPE html>
@@ -53,7 +78,6 @@ Aşağıdaki **tam `index.html` kodunu** kopyalayıp GitHub'daki `index.html` do
             padding: 16px 40px;
         }
 
-        /* Sol Üst Logo (2 Kat Büyütüldü & Tıklanabilir) */
         .logo-container {
             display: flex;
             align-items: center;
@@ -62,7 +86,7 @@ Aşağıdaki **tam `index.html` kodunu** kopyalayıp GitHub'daki `index.html` do
         }
 
         .logo-container img {
-            height: 52px; /* 2 kat büyütüldü (orijinal 26-28px idi) */
+            height: 52px;
             width: auto;
             display: block;
             transition: transform 0.2s ease;
@@ -72,11 +96,10 @@ Aşağıdaki **tam `index.html` kodunu** kopyalayıp GitHub'daki `index.html` do
             transform: scale(1.03);
         }
 
-        /* Üst Orta Buton Menüsü */
         nav {
             display: flex;
             gap: 15px;
-            margin: 0 auto; /* Tam ortaya hizalar */
+            margin: 0 auto;
         }
 
         nav a {
@@ -92,7 +115,6 @@ Aşağıdaki **tam `index.html` kodunu** kopyalayıp GitHub'daki `index.html` do
             cursor: pointer;
         }
 
-        /* Hover & Parıltı Efekti */
         nav a:hover {
             color: var(--text-main);
             background: var(--hover-bg);
@@ -101,7 +123,6 @@ Aşağıdaki **tam `index.html` kodunu** kopyalayıp GitHub'daki `index.html` do
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
         }
 
-        /* Aktif Sekme Durumu */
         nav a.active {
             color: var(--text-main);
             background: #f0f0f2;
@@ -109,7 +130,6 @@ Aşağıdaki **tam `index.html` kodunu** kopyalayıp GitHub'daki `index.html` do
             font-weight: 600;
         }
 
-        /* Sağ tarafı dengelemek için boş div (flex yapısında ortalamayı korur) */
         .header-spacer {
             width: 100px; 
         }
@@ -189,7 +209,7 @@ Aşağıdaki **tam `index.html` kodunu** kopyalayıp GitHub'daki `index.html` do
             transform: translateY(-2px);
         }
 
-        /* SECTION 2 & 3: SHOWCASES (GRID LAYOUT) */
+        /* SECTION 2 & 3: SHOWCASES */
         .showcase-header {
             margin-bottom: 40px;
         }
@@ -208,8 +228,8 @@ Aşağıdaki **tam `index.html` kodunu** kopyalayıp GitHub'daki `index.html` do
 
         .grid-container {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
         }
 
         .grid-item {
@@ -217,18 +237,75 @@ Aşağıdaki **tam `index.html` kodunu** kopyalayıp GitHub'daki `index.html` do
             border: 1px solid var(--border-color);
             border-radius: 12px;
             overflow: hidden;
-            aspect-ratio: 16 / 10;
+            aspect-ratio: 1 / 1;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            transition: all 0.2s ease;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+        }
+
+        .grid-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.3s ease;
         }
 
         .grid-item:hover {
             border-color: var(--text-main);
-            background: #f5f5f5;
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+        }
+
+        .grid-item:hover img {
+            transform: scale(1.03);
+        }
+
+        /* LIGHTBOX / FULLSCREEN MODAL */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(8px);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .lightbox.active {
+            display: flex;
+        }
+
+        .lightbox img {
+            max-width: 90%;
+            max-height: 90vh;
+            border-radius: 8px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+            object-fit: contain;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 25px;
+            right: 35px;
+            color: #ffffff;
+            font-size: 35px;
+            font-weight: 300;
+            cursor: pointer;
+            user-select: none;
+            transition: opacity 0.2s ease;
+        }
+
+        .lightbox-close:hover {
+            opacity: 0.7;
         }
 
         /* FOOTER */
@@ -247,7 +324,11 @@ Aşağıdaki **tam `index.html` kodunu** kopyalayıp GitHub'daki `index.html` do
                 justify-content: space-between;
             }
             nav {
-                display: none; /* Mobilde hamburger menüye taşınabilir veya alt alta sıralanabilir */
+                gap: 5px;
+            }
+            nav a {
+                padding: 8px 12px;
+                font-size: 0.85rem;
             }
             .header-spacer {
                 display: none;
@@ -259,7 +340,7 @@ Aşağıdaki **tam `index.html` kodunu** kopyalayıp GitHub'daki `index.html` do
                 font-size: 2rem;
             }
             .grid-container {
-                grid-template-columns: 1fr;
+                grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
             }
         }
     </style>
@@ -268,19 +349,16 @@ Aşağıdaki **tam `index.html` kodunu** kopyalayıp GitHub'daki `index.html` do
 
     <!-- HEADER / LOGO & NAVIGATION -->
     <header>
-        <!-- Logo (Tıklayınca her sayfadan ana sayfaya döner) -->
         <a class="logo-container" onclick="switchTab('home')">
             <img src="logo.svg" alt="Vektonic Logo">
         </a>
 
-        <!-- Üst Orta Butonlar -->
         <nav>
             <a onclick="switchTab('home')" id="nav-home" class="active">Ana Sayfa</a>
             <a onclick="switchTab('design')" id="nav-design">Graphic Design</a>
             <a onclick="switchTab('video')" id="nav-video">Video Showcase</a>
         </nav>
 
-        <!-- Tasarım Dengeleyicisi -->
         <div class="header-spacer"></div>
     </header>
 
@@ -304,12 +382,24 @@ Aşağıdaki **tam `index.html` kodunu** kopyalayıp GitHub'daki `index.html` do
         <section id="design" class="section">
             <div class="showcase-header">
                 <h2>Graphic Design Showcase</h2>
-                <p>E-ticaret tasarımları, sosyal medya şablonları ve portfolyo çalışmaları.</p>
+                <p>E-ticaret ürün tasarımları, reklam görselleri ve sosyal medya çalışmaları.</p>
             </div>
             <div class="grid-container">
-                <div class="grid-item">Görsel Alanı 1 (Yakında)</div>
-                <div class="grid-item">Görsel Alanı 2 (Yakında)</div>
-                <div class="grid-item">Görsel Alanı 3 (Yakında)</div>
+                <div class="grid-item" onclick="openLightbox('1.jpg')">
+                    <img src="1.jpg" alt="Saç Kurutma Makinesi Tasarımı 1">
+                </div>
+                <div class="grid-item" onclick="openLightbox('2.png')">
+                    <img src="2.png" alt="Saç Kurutma Makinesi Tasarımı 2">
+                </div>
+                <div class="grid-item" onclick="openLightbox('3.jpg')">
+                    <img src="3.jpg" alt="Eğitim Kampanyası Tasarımı">
+                </div>
+                <div class="grid-item" onclick="openLightbox('4.jpg')">
+                    <img src="4.jpg" alt="Aesthetic Organics Cilt Bakımı">
+                </div>
+                <div class="grid-item" onclick="openLightbox('5.jpg')">
+                    <img src="5.jpg" alt="Perfectionist Plus Vücut Losyonu">
+                </div>
             </div>
         </section>
 
@@ -320,18 +410,24 @@ Aşağıdaki **tam `index.html` kodunu** kopyalayıp GitHub'daki `index.html` do
                 <p>Tanıtım filmleri, kurgu projeleri ve reklam videoları.</p>
             </div>
             <div class="grid-container">
-                <div class="grid-item">Video Alanı 1 (Yakında)</div>
-                <div class="grid-item">Video Alanı 2 (Yakında)</div>
+                <div class="grid-item" style="aspect-ratio: 16/10; color: var(--text-muted);">Video Alanı 1 (Yakında)</div>
+                <div class="grid-item" style="aspect-ratio: 16/10; color: var(--text-muted);">Video Alanı 2 (Yakında)</div>
             </div>
         </section>
     </main>
+
+    <!-- LIGHTBOX / FULLSCREEN MODAL -->
+    <div id="lightbox" class="lightbox" onclick="closeLightbox()">
+        <span class="lightbox-close">&times;</span>
+        <img id="lightbox-img" src="" alt="Büyütülmüş Görsel" onclick="event.stopPropagation()">
+    </div>
 
     <!-- FOOTER -->
     <footer>
         <p>&copy; 2026 Vektonic. Tüm hakları saklıdır.</p>
     </footer>
 
-    <!-- TAB SWITCHING SCRIPT -->
+    <!-- JAVASCRIPT -->
     <script>
         function switchTab(tabId) {
             document.querySelectorAll('.section').forEach(sec => {
@@ -342,13 +438,23 @@ Aşağıdaki **tam `index.html` kodunu** kopyalayıp GitHub'daki `index.html` do
             document.querySelectorAll('nav a').forEach(nav => {
                 nav.classList.remove('active');
             });
-            // Eğer ana sayfaya logodan tıklandıysa nav-home'u aktif et
             const activeNav = document.getElementById('nav-' + tabId);
             if (activeNav) {
                 activeNav.classList.add('active');
             }
 
             window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function openLightbox(imageSrc) {
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImg = document.getElementById('lightbox-img');
+            lightboxImg.src = imageSrc;
+            lightbox.classList.add('active');
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.remove('active');
         }
     </script>
 </body>
