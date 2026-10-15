@@ -266,6 +266,9 @@
             transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
             background: var(--card-bg);
             position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .floating-card img {
@@ -273,7 +276,12 @@
             height: 100%;
             object-fit: cover;
             display: block;
-            transition: opacity 0.5s ease-in-out, transform 0.4s ease;
+            transition: opacity 0.6s ease-in-out, transform 0.4s ease;
+        }
+
+        .floating-card img.hidden {
+            opacity: 0;
+            pointer-events: none;
         }
 
         .floating-card:hover {
@@ -286,7 +294,7 @@
             transform: scale(1.05);
         }
 
-        /* Yaprakların hafif organik rotasyonları */
+        /* Yaprakların organik açıları */
         .floating-column.left .floating-card:nth-child(1) { transform: rotate(-3deg); }
         .floating-column.left .floating-card:nth-child(2) { transform: rotate(2deg) translateX(12px); }
         .floating-column.left .floating-card:nth-child(3) { transform: rotate(-2deg); }
@@ -453,55 +461,53 @@
     </header>
 
     <main>
-        <!-- 1. ANA SAYFA & 3'ERLİ DİNAMİK YAPRAKLAR -->
+        <!-- 1. ANA SAYFA & YAN YAPRAKLAR -->
         <section id="home" class="section active">
             <div class="home-wrapper">
-                <!-- Sol ve Sağ 3'erli Yaprak Kolonları -->
                 <div class="floating-layers">
+                    <!-- Sol Kolon -->
                     <div class="floating-column left">
                         <div class="floating-card" onclick="switchTab('design')">
-                            <img id="leaf-left-0" src="1.jpg" alt="Portföy Görseli">
+                            <img id="leaf-left-0" src="1.jpg" alt="Portföy Tasarımı">
                         </div>
                         <div class="floating-card" onclick="switchTab('design')">
-                            <img id="leaf-left-1" src="2.png" alt="Portföy Görseli">
+                            <img id="leaf-left-1" src="2.png" alt="Portföy Tasarımı">
                         </div>
                         <div class="floating-card" onclick="switchTab('design')">
-                            <img id="leaf-left-2" src="3.jpg" alt="Portföy Görseli">
+                            <img id="leaf-left-2" src="3.jpg" alt="Portföy Tasarımı">
                         </div>
                     </div>
                     
+                    <!-- Sağ Kolon -->
                     <div class="floating-column right">
                         <div class="floating-card" onclick="switchTab('design')">
-                            <img id="leaf-right-0" src="4.jpg" alt="Portföy Görseli">
+                            <img id="leaf-right-0" src="4.jpg" alt="Portföy Tasarımı">
                         </div>
                         <div class="floating-card" onclick="switchTab('design')">
-                            <img id="leaf-right-1" src="5.jpg" alt="Portföy Görseli">
+                            <img id="leaf-right-1" src="5.jpg" alt="Portföy Tasarımı">
                         </div>
                         <div class="floating-card" onclick="switchTab('design')">
-                            <img id="leaf-right-2" src="1.jpg" alt="Portföy Görseli">
+                            <img id="leaf-right-2" src="" alt="Portföy Tasarımı" class="hidden">
                         </div>
                     </div>
                 </div>
 
-                <!-- Ana İçerik & Sosyal/İletişim Butonları -->
+                <!-- İletişim & Hero -->
                 <div class="hero">
                     <h1>Dijital Çözümler & Görsel Üretim</h1>
                     <p>Ticari markalar, e-ticaret projeleri ve dijital mecralar için profesyonel grafik tasarım, görsel içerik ve video prodüksiyon hizmetleri sunuyoruz.</p>
                     
                     <div class="linktree-container">
-                        <!-- Instagram -->
                         <a href="https://instagram.com" target="_blank" class="social-btn">
                             <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
                             Instagram
                         </a>
 
-                        <!-- WhatsApp -->
                         <a href="https://wa.me/905000000000" target="_blank" class="social-btn">
                             <svg viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
                             WhatsApp İletişim
                         </a>
 
-                        <!-- E-posta -->
                         <a href="mailto:iletisim@vektonic.com.tr" class="social-btn">
                             <svg viewBox="0 0 24 24"><path d="M0 3v18h24v-18h-24zm6.623 7.929l-4.623 5.712v-9.458l4.623 3.746zm-4.141-5.929h19.035l-9.517 7.713-9.518-7.713zm19.518 10.458l-4.692-5.798 4.692-3.801v9.599zm-10.381 1.542l-5.111-4.143-4.922 6.085h19.034l-4.921-6.085-5.11 4.143z"/></svg>
                             E-posta Gönder
@@ -608,69 +614,83 @@
             document.getElementById('lightbox').classList.remove('active');
         }
 
-        // PORTFÖY GÖRSELLERİ VE SIRALI SENKRON DEĞİŞİM (ÇAKIŞMASIZ)
-        // Yeni görseller ekledikçe bu diziye eklemen yeterlidir.
+        // --- %100 BENZERSIZ, SIRA İLE SENKRON DEĞİŞEN YAPRAK ALGORİTMASI ---
+        // Yeni tasarımlar ekledikçe bu diziye yazman yeterlidir.
         const portfolioImages = ['1.jpg', '2.png', '3.jpg', '4.jpg', '5.jpg'];
-        
-        // Çiftler: [Sol Index, Sağ Index] -> 0: Üst, 1: Orta, 2: Alt
-        const pairs = [
-            { left: 'leaf-left-0', right: 'leaf-right-0' }, // 1. Çift (Üstler)
-            { left: 'leaf-left-1', right: 'leaf-right-1' }, // 2. Çift (Ortalar)
-            { left: 'leaf-left-2', right: 'leaf-right-2' }  // 3. Çift (Altlar)
+
+        const leafSlots = [
+            { left: 'leaf-left-0', right: 'leaf-right-0' }, // 1. Çift (Üst)
+            { left: 'leaf-left-1', right: 'leaf-right-1' }, // 2. Çift (Orta)
+            { left: 'leaf-left-2', right: 'leaf-right-2' }  // 3. Çift (Alt)
         ];
 
-        let currentPairIndex = 0;
+        let currentPairStep = 0;
+        let poolIndex = 0;
 
-        function rotateNextPair() {
-            const pair = pairs[currentPairIndex];
-            const leftEl = document.getElementById(pair.left);
-            const rightEl = document.getElementById(pair.right);
+        function updatePairSynchronously() {
+            const pair = leafSlots[currentPairStep];
+            const leftImgEl = document.getElementById(pair.left);
+            const rightImgEl = document.getElementById(pair.right);
 
-            if (!leftEl || !rightEl) return;
-
-            // Ekranda şu an aktif olarak BULUNAN tüm görselleri topla (çakışmayı önlemek için)
-            const activeImages = [];
-            ['leaf-left-0', 'leaf-left-1', 'leaf-left-2', 'leaf-right-0', 'leaf-right-1', 'leaf-right-2'].forEach(id => {
-                const el = document.getElementById(id);
-                if (el) {
-                    // src yolundan sadece dosya adını al
-                    const parts = el.src.split('/');
-                    activeImages.push(parts[parts.length - 1]);
+            // Ekranda o an görünmekte olan diğer tüm aktif görselleri topla
+            const currentlyVisibleImages = [];
+            document.querySelectorAll('.floating-card img').forEach(img => {
+                if (!img.classList.contains('hidden') && img.src) {
+                    const filename = img.src.substring(img.src.lastIndexOf('/') + 1);
+                    if (filename && img !== leftImgEl && img !== rightImgEl) {
+                        currentlyVisibleImages.push(filename);
+                    }
                 }
             });
 
-            // Kullanılabilir havuzdan şu an ekranda OLMAYANLARI filtrele
-            let availableImages = portfolioImages.filter(img => !activeImages.includes(img));
+            // Portföyden ekranda HALİHAZIRDA OLMAYAN görselleri seç
+            let availableForNext = portfolioImages.filter(img => !currentlyVisibleImages.includes(img));
+
+            // Sol ve Sağ için 2 adet çakışmasız görsel alma mantığı
+            let nextLeft = availableForNext[poolIndex % availableForNext.length] || null;
+            poolIndex++;
+            let nextRight = availableForNext[poolIndex % availableForNext.length] || null;
             
-            // Eğer yeterli görsel yoksa havuzu baştan aç
-            if (availableImages.length < 2) {
-                availableImages = [...portfolioImages];
+            // Eğer ikisi aynı denk geldiyse sağ görseli bir sonrakiyle değiştir
+            if (nextLeft && nextRight && nextLeft === nextRight && availableForNext.length > 1) {
+                poolIndex++;
+                nextRight = availableForNext[poolIndex % availableForNext.length];
             }
 
-            // Havuzdan rastgele 2 farklı görsel seç
-            const shuffled = [...availableImages].sort(() => 0.5 - Math.random());
-            const newLeftImg = shuffled[0];
-            const newRightImg = shuffled[1] || shuffled[0];
+            // Sol görsel değişimi (Fade efektli)
+            if (leftImgEl) {
+                leftImgEl.style.opacity = '0';
+                setTimeout(() => {
+                    if (nextLeft) {
+                        leftImgEl.src = nextLeft;
+                        leftImgEl.classList.remove('hidden');
+                        leftImgEl.style.opacity = '1';
+                    } else {
+                        leftImgEl.classList.add('hidden');
+                    }
+                }, 400);
+            }
 
-            // Yumuşakça karart (Fade out)
-            leftEl.style.opacity = '0';
-            rightEl.style.opacity = '0';
+            // Sağ görsel değişimi (Fade efektli)
+            if (rightImgEl) {
+                rightImgEl.style.opacity = '0';
+                setTimeout(() => {
+                    if (nextRight) {
+                        rightImgEl.src = nextRight;
+                        rightImgEl.classList.remove('hidden');
+                        rightImgEl.style.opacity = '1';
+                    } else {
+                        rightImgEl.classList.add('hidden');
+                    }
+                }, 400);
+            }
 
-            setTimeout(() => {
-                leftEl.src = newLeftImg;
-                rightEl.src = newRightImg;
-
-                // Yumuşakça belir (Fade in)
-                leftEl.style.opacity = '1';
-                rightEl.style.opacity = '1';
-            }, 400);
-
-            // Sonraki çifte geç (0 -> 1 -> 2 -> 0 şeklinde döner)
-            currentPairIndex = (currentPairIndex + 1) % pairs.length;
+            // Sıradaki çift için adım güncelle (0 -> 1 -> 2 -> 0)
+            currentPairStep = (currentPairStep + 1) % leafSlots.length;
         }
 
-        // Her 3 saniyede bir sırayla bir çifti (Sol & Sağ eşzamanlı) değiştir
-        setInterval(rotateNextPair, 3000);
+        // Her 3 saniyede sırasıyla Sol 1 - Sağ 1, Sol 2 - Sağ 2, Sol 3 - Sağ 3 değiştir
+        setInterval(updatePairSynchronously, 3000);
     </script>
 </body>
 </html>
