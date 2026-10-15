@@ -165,10 +165,10 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* SECTION 1: HOME & INTERACTIVE FLOATING SIDE CARDS */
+        /* SECTION 1: HOME & 3'ERLİ DİNAMİK YAN KATMANLAR */
         .home-wrapper {
             position: relative;
-            min-height: 70vh;
+            min-height: 75vh;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -176,7 +176,7 @@
 
         .hero {
             text-align: center;
-            max-width: 600px;
+            max-width: 580px;
             margin: 0 auto;
             z-index: 10;
         }
@@ -232,7 +232,7 @@
             box-shadow: 0 6px 20px rgba(0,0,0,0.08);
         }
 
-        /* YAN KATMANLAR (FLOATING DESIGN CARDS) */
+        /* YAN KATMANLAR (SOL VE SAĞ BOŞLUKLARA ORTalanmış 3'erLİ YAPRAKLAR) */
         .floating-layers {
             position: absolute;
             top: 0;
@@ -243,20 +243,21 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0 40px;
+            padding: 0 50px;
             z-index: 5;
         }
 
         .floating-column {
             display: flex;
             flex-direction: column;
-            gap: 25px;
+            justify-content: center;
+            gap: 18px;
             pointer-events: auto;
         }
 
         .floating-card {
-            width: 160px;
-            height: 160px;
+            width: 145px;
+            height: 145px;
             border-radius: 16px;
             overflow: hidden;
             border: 1px solid var(--border-color);
@@ -272,7 +273,7 @@
             height: 100%;
             object-fit: cover;
             display: block;
-            transition: transform 0.4s ease;
+            transition: opacity 0.8s ease-in-out, transform 0.4s ease;
         }
 
         .floating-card:hover {
@@ -285,10 +286,14 @@
             transform: scale(1.05);
         }
 
+        /* Yaprakların hafif organik rotasyonları */
         .floating-column.left .floating-card:nth-child(1) { transform: rotate(-3deg); }
-        .floating-column.left .floating-card:nth-child(2) { transform: rotate(2deg) translateX(15px); }
+        .floating-column.left .floating-card:nth-child(2) { transform: rotate(2deg) translateX(12px); }
+        .floating-column.left .floating-card:nth-child(3) { transform: rotate(-2deg); }
+        
         .floating-column.right .floating-card:nth-child(1) { transform: rotate(3deg); }
-        .floating-column.right .floating-card:nth-child(2) { transform: rotate(-2deg) translateX(-15px); }
+        .floating-column.right .floating-card:nth-child(2) { transform: rotate(-2deg) translateX(-12px); }
+        .floating-column.right .floating-card:nth-child(3) { transform: rotate(2deg); }
 
         /* SECTION 2 & 3: SHOWCASES */
         .showcase-header {
@@ -398,7 +403,7 @@
         }
 
         /* RESPONSIVE */
-        @media (max-width: 1024px) {
+        @media (max-width: 1100px) {
             .floating-layers {
                 display: none;
             }
@@ -448,27 +453,33 @@
     </header>
 
     <main>
-        <!-- 1. ANA SAYFA & YAN KATMANLAR -->
+        <!-- 1. ANA SAYFA & 3'ERLİ DİNAMİK YAPRAKLAR -->
         <section id="home" class="section active">
             <div class="home-wrapper">
-                <!-- Sol Taraftaki Tasarım Katmanları -->
+                <!-- Sol Taraftaki 3'lü Yaprak Kolonu -->
                 <div class="floating-layers">
                     <div class="floating-column left">
                         <div class="floating-card" onclick="switchTab('design')">
-                            <img src="1.jpg" alt="Tasarım 1">
+                            <img id="leaf-left-0" src="1.jpg" alt="Portföy Görseli">
                         </div>
                         <div class="floating-card" onclick="switchTab('design')">
-                            <img src="2.png" alt="Tasarım 2">
+                            <img id="leaf-left-1" src="2.png" alt="Portföy Görseli">
+                        </div>
+                        <div class="floating-card" onclick="switchTab('design')">
+                            <img id="leaf-left-2" src="3.jpg" alt="Portföy Görseli">
                         </div>
                     </div>
                     
-                    <!-- Sağ Taraftaki Tasarım Katmanları -->
+                    <!-- Sağ Taraftaki 3'lü Yaprak Kolonu -->
                     <div class="floating-column right">
                         <div class="floating-card" onclick="switchTab('design')">
-                            <img src="3.jpg" alt="Tasarım 3">
+                            <img id="leaf-right-0" src="4.jpg" alt="Portföy Görseli">
                         </div>
                         <div class="floating-card" onclick="switchTab('design')">
-                            <img src="4.jpg" alt="Tasarım 4">
+                            <img id="leaf-right-1" src="5.jpg" alt="Portföy Görseli">
+                        </div>
+                        <div class="floating-card" onclick="switchTab('design')">
+                            <img id="leaf-right-2" src="1.jpg" alt="Portföy Görseli">
                         </div>
                     </div>
                 </div>
@@ -597,6 +608,35 @@
         function closeLightbox() {
             document.getElementById('lightbox').classList.remove('active');
         }
+
+        // PORTFÖY GÖRSELLERİ ARASINDA 3 SANİYEDE BİR RASTGELE YUMUŞAK GEÇİŞ (FADE) DÖNGÜSÜ
+        const portfolioImages = ['1.jpg', '2.png', '3.jpg', '4.jpg', '5.jpg'];
+        const leafIds = [
+            'leaf-left-0', 'leaf-left-1', 'leaf-left-2',
+            'leaf-right-0', 'leaf-right-1', 'leaf-right-2'
+        ];
+
+        function rotateRandomLeaf() {
+            // Rastgele bir yaprak seç
+            const randomLeafId = leafIds[Math.floor(Math.random() * leafIds.length)];
+            const imgElement = document.getElementById(randomLeafId);
+            if (!imgElement) return;
+
+            // Rastgele bir portföy görseli seç (şu ankinden farklı olmaya çalışsın)
+            let randomImg = portfolioImages[Math.floor(Math.random() * portfolioImages.length)];
+            
+            // Yumuşak karartma (fade out)
+            imgElement.style.opacity = '0';
+
+            setTimeout(() => {
+                imgElement.src = randomImg;
+                // Yumuşak belirme (fade in)
+                imgElement.style.opacity = '1';
+            }, 400); // 400ms geçiş süresi
+        }
+
+        // Her 3 saniyede bir yapraklardan birini rastgele değiştir
+        setInterval(rotateRandomLeaf, 3000);
     </script>
 </body>
 </html>
