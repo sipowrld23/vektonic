@@ -13,7 +13,7 @@
             --hover-bg: #f5f5f7;
             --card-bg: #fafafa;
             --logo-filter: none;
-            --floating-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            --floating-shadow: 0 15px 35px rgba(0,0,0,0.1);
         }
 
         /* Karanlık Mod Renkleri */
@@ -25,7 +25,7 @@
             --hover-bg: #1c1c21;
             --card-bg: #16161a;
             --logo-filter: invert(1) brightness(2);
-            --floating-shadow: 0 10px 30px rgba(0,0,0,0.4);
+            --floating-shadow: 0 20px 40px rgba(0,0,0,0.5);
         }
 
         * {
@@ -165,10 +165,10 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* SECTION 1: HOME & 3'ERLİ DİNAMİK YAPRAKLAR */
+        /* SECTION 1: HOME & 3'ERLİ DIŞA TAŞAN YAN YAPRAKLAR */
         .home-wrapper {
             position: relative;
-            min-height: 75vh;
+            min-height: 78vh;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -232,7 +232,7 @@
             box-shadow: 0 6px 20px rgba(0,0,0,0.08);
         }
 
-        /* YAN KATMANLAR */
+        /* YAN KATMANLAR (Kenarlara Yaklaştırılmış ve Dışa Taşan Yapraklar) */
         .floating-layers {
             position: absolute;
             top: 0;
@@ -243,7 +243,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0 50px;
+            padding: 0 15px; /* Kenarlara çok daha yakın */
             z-index: 5;
         }
 
@@ -251,20 +251,21 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
-            gap: 18px;
+            gap: 20px;
             pointer-events: auto;
         }
 
         .floating-card {
-            width: 145px;
-            height: 145px;
-            border-radius: 16px;
+            width: 155px;
+            height: 155px;
+            border-radius: 18px;
             overflow: hidden;
             border: 1px solid var(--border-color);
             box-shadow: var(--floating-shadow);
             cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
             background: var(--card-bg);
+            backdrop-filter: blur(8px);
             position: relative;
             display: flex;
             align-items: center;
@@ -284,24 +285,53 @@
             pointer-events: none;
         }
 
+        /* HOVER: Büyüme, Parlama ve Durdurma Efekti */
         .floating-card:hover {
-            transform: scale(1.08) translateY(-4px);
+            transform: scale(1.12) translateY(-6px);
             border-color: var(--text-main);
-            box-shadow: 0 16px 35px rgba(0,0,0,0.15);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.2);
+            z-index: 50;
         }
 
         .floating-card:hover img {
-            transform: scale(1.05);
+            transform: scale(1.06);
         }
 
-        /* Yaprakların organik açıları */
-        .floating-column.left .floating-card:nth-child(1) { transform: rotate(-3deg); }
-        .floating-column.left .floating-card:nth-child(2) { transform: rotate(2deg) translateX(12px); }
-        .floating-column.left .floating-card:nth-child(3) { transform: rotate(-2deg); }
+        /* GÖRSEL ÜSTÜ BAŞLIK (TOOLTIP) */
+        .floating-card::after {
+            content: attr(data-title);
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%) translateY(10px);
+            background: rgba(0, 0, 0, 0.75);
+            color: #ffffff;
+            padding: 4px 10px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            border-radius: 6px;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.25s ease;
+            backdrop-filter: blur(4px);
+            z-index: 10;
+        }
+
+        .floating-card:hover::after {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* Dışa Taşan Asimetrik Yaprak Konumları */
+        .floating-column.left .floating-card:nth-child(1) { transform: rotate(-4deg) translateX(-10px); }
+        .floating-column.left .floating-card:nth-child(2) { transform: rotate(3deg) translateX(-25px); } /* Dışarı taşaçak gibi */
+        .floating-column.left .floating-card:nth-child(3) { transform: rotate(-2deg) translateX(-10px); }
         
-        .floating-column.right .floating-card:nth-child(1) { transform: rotate(3deg); }
-        .floating-column.right .floating-card:nth-child(2) { transform: rotate(-2deg) translateX(-12px); }
-        .floating-column.right .floating-card:nth-child(3) { transform: rotate(2deg); }
+        .floating-column.right .floating-card:nth-child(1) { transform: rotate(4deg) translateX(10px); }
+        .floating-column.right .floating-card:nth-child(2) { transform: rotate(-3deg) translateX(25px); } /* Dışarı taşacak gibi */
+        .floating-column.right .floating-card:nth-child(3) { transform: rotate(2deg) translateX(10px); }
 
         /* SECTION 2 & 3: SHOWCASES */
         .showcase-header {
@@ -411,7 +441,7 @@
         }
 
         /* RESPONSIVE */
-        @media (max-width: 1100px) {
+        @media (max-width: 1150px) {
             .floating-layers {
                 display: none;
             }
@@ -465,28 +495,28 @@
         <section id="home" class="section active">
             <div class="home-wrapper">
                 <div class="floating-layers">
-                    <!-- Sol Kolon -->
+                    <!-- Sol Kolon (Dışa Taşan Yapraklar) -->
                     <div class="floating-column left">
-                        <div class="floating-card" onclick="switchTab('design')">
+                        <div class="floating-card" id="card-left-0" data-title="Tasarım" onclick="switchTab('design')">
                             <img id="leaf-left-0" src="1.jpg" alt="Portföy Tasarımı">
                         </div>
-                        <div class="floating-card" onclick="switchTab('design')">
+                        <div class="floating-card" id="card-left-1" data-title="Tasarım" onclick="switchTab('design')">
                             <img id="leaf-left-1" src="2.png" alt="Portföy Tasarımı">
                         </div>
-                        <div class="floating-card" onclick="switchTab('design')">
+                        <div class="floating-card" id="card-left-2" data-title="Tasarım" onclick="switchTab('design')">
                             <img id="leaf-left-2" src="3.jpg" alt="Portföy Tasarımı">
                         </div>
                     </div>
                     
-                    <!-- Sağ Kolon -->
+                    <!-- Sağ Kolon (Dışa Taşan Yapraklar) -->
                     <div class="floating-column right">
-                        <div class="floating-card" onclick="switchTab('design')">
+                        <div class="floating-card" id="card-right-0" data-title="Tasarım" onclick="switchTab('design')">
                             <img id="leaf-right-0" src="4.jpg" alt="Portföy Tasarımı">
                         </div>
-                        <div class="floating-card" onclick="switchTab('design')">
+                        <div class="floating-card" id="card-right-1" data-title="Tasarım" onclick="switchTab('design')">
                             <img id="leaf-right-1" src="5.jpg" alt="Portföy Tasarımı">
                         </div>
-                        <div class="floating-card" onclick="switchTab('design')">
+                        <div class="floating-card" id="card-right-2" data-title="Tasarım" onclick="switchTab('design')">
                             <img id="leaf-right-2" src="" alt="Portföy Tasarımı" class="hidden">
                         </div>
                     </div>
@@ -614,25 +644,67 @@
             document.getElementById('lightbox').classList.remove('active');
         }
 
-        // --- %100 BENZERSIZ, SIRA İLE SENKRON DEĞİŞEN YAPRAK ALGORİTMASI ---
-        // Yeni tasarımlar ekledikçe bu diziye yazman yeterlidir.
-        const portfolioImages = ['1.jpg', '2.png', '3.jpg', '4.jpg', '5.jpg'];
+        // --- GELİŞMİŞ YAPRAK YÖNETİMİ & HOVER KONTROLÜ ---
+        const portfolioImages = [
+            { src: '1.jpg', name: 'Saç Kurutma Makinesi 1' },
+            { src: '2.png', name: 'Saç Kurutma Makinesi 2' },
+            { src: '3.jpg', name: 'Eğitim Kampanyası' },
+            { src: '4.jpg', name: 'Aesthetic Organics' },
+            { src: '5.jpg', name: 'Perfectionist Plus' }
+        ];
 
         const leafSlots = [
-            { left: 'leaf-left-0', right: 'leaf-right-0' }, // 1. Çift (Üst)
-            { left: 'leaf-left-1', right: 'leaf-right-1' }, // 2. Çift (Orta)
-            { left: 'leaf-left-2', right: 'leaf-right-2' }  // 3. Çift (Alt)
+            { leftImg: 'leaf-left-0', leftCard: 'card-left-0', rightImg: 'leaf-right-0', rightCard: 'card-right-0' },
+            { leftImg: 'leaf-left-1', leftCard: 'card-left-1', rightImg: 'leaf-right-1', rightCard: 'card-right-1' },
+            { leftImg: 'leaf-left-2', leftCard: 'card-left-2', rightImg: 'leaf-right-2', rightCard: 'card-right-2' }
         ];
+
+        // Hangi kartların üzerinde fare (hover) olduğu takibi
+        const hoveredCards = {};
+        document.querySelectorAll('.floating-card').forEach(card => {
+            const cardId = card.id;
+            card.addEventListener('mouseenter', () => hoveredCards[cardId] = true);
+            card.addEventListener('mouseleave', () => hoveredCards[cardId] = false);
+        });
+
+        // Kartların altındaki tooltip isimlerini dosya adından türeten yardımcı fonksiyon
+        function updateCardTooltip(cardElement, imageFilename) {
+            const found = portfolioImages.find(p => p.src === imageFilename);
+            if (found) {
+                cardElement.setAttribute('data-title', found.name);
+            }
+        }
+
+        // Başlangıçta tooltip'leri yerleştir
+        leafSlots.forEach(slot => {
+            const lImg = document.getElementById(slot.leftImg);
+            const rImg = document.getElementById(slot.rightImg);
+            if (lImg && lImg.src) {
+                const fname = lImg.src.substring(lImg.src.lastIndexOf('/') + 1);
+                updateCardTooltip(document.getElementById(slot.leftCard), fname);
+            }
+            if (rImg && rImg.src) {
+                const fname = rImg.src.substring(rImg.src.lastIndexOf('/') + 1);
+                updateCardTooltip(document.getElementById(slot.rightCard), fname);
+            }
+        });
 
         let currentPairStep = 0;
         let poolIndex = 0;
 
         function updatePairSynchronously() {
-            const pair = leafSlots[currentPairStep];
-            const leftImgEl = document.getElementById(pair.left);
-            const rightImgEl = document.getElementById(pair.right);
+            const slot = leafSlots[currentPairStep];
+            
+            // Eğer kullanıcı bu çifte ait kartlardan birinin üzerindeyse bu turu atla (Durdurma efekti)
+            if (hoveredCards[slot.leftCard] || hoveredCards[slot.rightCard]) {
+                currentPairStep = (currentPairStep + 1) % leafSlots.length;
+                return;
+            }
 
-            // Ekranda o an görünmekte olan diğer tüm aktif görselleri topla
+            const leftImgEl = document.getElementById(slot.leftImg);
+            const rightImgEl = document.getElementById(slot.rightImg);
+
+            // Ekranda aktif olan diğer görselleri bul
             const currentlyVisibleImages = [];
             document.querySelectorAll('.floating-card img').forEach(img => {
                 if (!img.classList.contains('hidden') && img.src) {
@@ -643,53 +715,44 @@
                 }
             });
 
-            // Portföyden ekranda HALİHAZIRDA OLMAYAN görselleri seç
-            let availableForNext = portfolioImages.filter(img => !currentlyVisibleImages.includes(img));
+            let available = portfolioImages.filter(p => !currentlyVisibleImages.includes(p.src));
+            if (available.length === 0) available = [...portfolioImages];
 
-            // Sol ve Sağ için 2 adet çakışmasız görsel alma mantığı
-            let nextLeft = availableForNext[poolIndex % availableForNext.length] || null;
+            let nextLeftObj = available[poolIndex % available.length] || portfolioImages[0];
             poolIndex++;
-            let nextRight = availableForNext[poolIndex % availableForNext.length] || null;
-            
-            // Eğer ikisi aynı denk geldiyse sağ görseli bir sonrakiyle değiştir
-            if (nextLeft && nextRight && nextLeft === nextRight && availableForNext.length > 1) {
+            let nextRightObj = available[poolIndex % available.length] || portfolioImages[1];
+
+            if (nextLeftObj.src === nextRightObj.src && available.length > 1) {
                 poolIndex++;
-                nextRight = availableForNext[poolIndex % availableForNext.length];
+                nextRightObj = available[poolIndex % available.length];
             }
 
-            // Sol görsel değişimi (Fade efektli)
+            // Sol görsel fade & değişim
             if (leftImgEl) {
                 leftImgEl.style.opacity = '0';
                 setTimeout(() => {
-                    if (nextLeft) {
-                        leftImgEl.src = nextLeft;
-                        leftImgEl.classList.remove('hidden');
-                        leftImgEl.style.opacity = '1';
-                    } else {
-                        leftImgEl.classList.add('hidden');
-                    }
+                    leftImgEl.src = nextLeftObj.src;
+                    leftImgEl.classList.remove('hidden');
+                    leftImgEl.style.opacity = '1';
+                    updateCardTooltip(document.getElementById(slot.leftCard), nextLeftObj.src);
                 }, 400);
             }
 
-            // Sağ görsel değişimi (Fade efektli)
+            // Sağ görsel fade & değişim
             if (rightImgEl) {
                 rightImgEl.style.opacity = '0';
                 setTimeout(() => {
-                    if (nextRight) {
-                        rightImgEl.src = nextRight;
-                        rightImgEl.classList.remove('hidden');
-                        rightImgEl.style.opacity = '1';
-                    } else {
-                        rightImgEl.classList.add('hidden');
-                    }
+                    rightImgEl.src = nextRightObj.src;
+                    rightImgEl.classList.remove('hidden');
+                    rightImgEl.style.opacity = '1';
+                    updateCardTooltip(document.getElementById(slot.rightCard), nextRightObj.src);
                 }, 400);
             }
 
-            // Sıradaki çift için adım güncelle (0 -> 1 -> 2 -> 0)
             currentPairStep = (currentPairStep + 1) % leafSlots.length;
         }
 
-        // Her 3 saniyede sırasıyla Sol 1 - Sağ 1, Sol 2 - Sağ 2, Sol 3 - Sağ 3 değiştir
+        // Her 3 saniyede bir sıradaki çifti (hover kontrolüyle) yenile
         setInterval(updatePairSynchronously, 3000);
     </script>
 </body>
