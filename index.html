@@ -8,22 +8,23 @@
     <!-- DİNAMİK FAVICON (SADECE SOL SİMGE) -->
     <link id="favicon" rel="icon" type="image/svg+xml" href="logo.svg">
 
-    <!-- ZARİF SERİF BAŞLIK FONTU (GÖRSELDEN ANALİZ EDİLEN) -->
+    <!-- ZARİF SERİF BAŞLIK FONTU -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 
     <style>
         :root {
-            /* Görselden Analiz Edilen Sıcak Krem/Kâğıt Paleti */
+            /* Sıcak Krem/Kâğıt Paleti */
             --bg-color: #f3eee8;
             --text-main: #1c241e;
             --text-muted: #5e635f;
             --border-color: #e2dcd4;
             --hover-bg: #e8e2d8;
             --card-bg: #f9f6f0;
+            --photo-paper-bg: #fcfaf7;
             --logo-filter: none; /* Sol üstteki logonun orijinal rengi korundu */
-            --floating-shadow: 0 15px 35px rgba(50, 45, 35, 0.07);
+            --floating-shadow: 0 18px 30px rgba(40, 35, 25, 0.12), 0 4px 10px rgba(0,0,0,0.05);
             
             /* Tipografi Tanımları */
             --font-heading: 'Cormorant Garamond', Georgia, serif;
@@ -38,8 +39,9 @@
             --border-color: #26262b;
             --hover-bg: #1c1c21;
             --card-bg: #16161a;
+            --photo-paper-bg: #1c1d21;
             --logo-filter: invert(1) brightness(2);
-            --floating-shadow: 0 20px 40px rgba(0,0,0,0.45);
+            --floating-shadow: 0 20px 40px rgba(0,0,0,0.5);
         }
 
         * {
@@ -152,7 +154,7 @@
             transform: scale(1.05);
         }
 
-        /* FLOATING LAYERS */
+        /* FLOATING LAYERS - DUVARA ASILMIŞ FOTOĞRAF KARTLARI */
         .floating-layers-container {
             position: fixed;
             top: 0;
@@ -166,20 +168,36 @@
 
         .floating-card-absolute {
             position: absolute;
-            width: 155px;
-            height: 155px;
-            border-radius: 18px;
-            overflow: hidden;
+            width: 165px;
+            height: 185px;
+            border-radius: 4px;
+            overflow: visible;
             border: 1px solid var(--border-color);
             box-shadow: var(--floating-shadow);
             cursor: pointer;
             transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease;
-            background: var(--card-bg);
-            backdrop-filter: blur(8px);
+            background: var(--photo-paper-bg);
             pointer-events: auto;
             display: flex;
+            flex-direction: column;
             align-items: center;
-            justify-content: center;
+            justify-content: flex-start;
+            padding: 10px 10px 28px 10px; /* Fotoğraf çerçevesi paspartu efekti */
+        }
+
+        /* Duvara İğnelenmiş Raptiye Simgesi */
+        .floating-card-absolute::before {
+            content: '';
+            position: absolute;
+            top: -7px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, #d88d71, #8b432a);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.3), inset 0 1px 2px rgba(255,255,255,0.6);
+            z-index: 15;
         }
 
         .floating-card-absolute img {
@@ -187,6 +205,7 @@
             height: 100%;
             object-fit: cover;
             display: block;
+            border-radius: 2px;
             transition: opacity 0.6s ease-in-out, transform 0.4s ease;
         }
 
@@ -196,34 +215,30 @@
         }
 
         .floating-card-absolute:hover {
-            transform: scale(1.12) !important;
+            transform: scale(1.1) rotate(0deg) !important;
             border-color: var(--text-main);
-            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+            box-shadow: 0 25px 45px rgba(0,0,0,0.22);
             z-index: 100;
         }
 
         .floating-card-absolute:hover img {
-            transform: scale(1.06);
+            transform: scale(1.03);
         }
 
         /* Tooltip */
         .floating-card-absolute::after {
             content: attr(data-title);
             position: absolute;
-            bottom: 8px;
+            bottom: 6px;
             left: 50%;
-            transform: translateX(-50%) translateY(10px);
-            background: rgba(30, 30, 30, 0.85);
-            color: #ffffff;
-            padding: 4px 10px;
-            font-size: 0.75rem;
+            transform: translateX(-50%) translateY(5px);
+            color: var(--text-muted);
+            font-size: 0.72rem;
             font-weight: 500;
-            border-radius: 6px;
             white-space: nowrap;
             opacity: 0;
             visibility: hidden;
             transition: all 0.25s ease;
-            backdrop-filter: blur(4px);
             z-index: 10;
         }
 
@@ -491,25 +506,27 @@
         </button>
     </header>
 
-    <!-- FLOATING LEAVES -->
+    <!-- FLOATING LEAVES - DUVARA ASILMIŞ FOTOĞRAFLAR (YENİ KONUMLAR VE AÇILAR) -->
     <div class="floating-layers-container" id="mainFloatingLayers">
-        <div class="floating-card-absolute" id="card-left-0" data-title="Tasarım" onclick="switchTab('design')" style="top: 22%; left: -25px; transform: rotate(-4deg);">
+        <!-- Sol Taraf Fotoğrafları -->
+        <div class="floating-card-absolute" id="card-left-0" data-title="Tasarım" onclick="switchTab('design')" style="top: 18%; left: 15px; transform: rotate(-6deg);">
             <img id="leaf-left-0" src="1.jpg" alt="Portföy Tasarımı">
         </div>
-        <div class="floating-card-absolute" id="card-left-1" data-title="Tasarım" onclick="switchTab('design')" style="top: 48%; left: -65px; transform: rotate(5deg);">
+        <div class="floating-card-absolute" id="card-left-1" data-title="Tasarım" onclick="switchTab('design')" style="top: 45%; left: 35px; transform: rotate(4deg);">
             <img id="leaf-left-1" src="2.png" alt="Portföy Tasarımı">
         </div>
-        <div class="floating-card-absolute" id="card-left-2" data-title="Tasarım" onclick="switchTab('design')" style="top: 74%; left: -25px; transform: rotate(-3deg);">
+        <div class="floating-card-absolute" id="card-left-2" data-title="Tasarım" onclick="switchTab('design')" style="top: 72%; left: 10px; transform: rotate(-5deg);">
             <img id="leaf-left-2" src="3.jpg" alt="Portföy Tasarımı">
         </div>
 
-        <div class="floating-card-absolute" id="card-right-0" data-title="Tasarım" onclick="switchTab('design')" style="top: 22%; right: -25px; transform: rotate(5deg);">
+        <!-- Sağ Taraf Fotoğrafları -->
+        <div class="floating-card-absolute" id="card-right-0" data-title="Tasarım" onclick="switchTab('design')" style="top: 20%; right: 25px; transform: rotate(7deg);">
             <img id="leaf-right-0" src="4.jpg" alt="Portföy Tasarımı">
         </div>
-        <div class="floating-card-absolute" id="card-right-1" data-title="Tasarım" onclick="switchTab('design')" style="top: 48%; right: -65px; transform: rotate(-5deg);">
+        <div class="floating-card-absolute" id="card-right-1" data-title="Tasarım" onclick="switchTab('design')" style="top: 48%; right: 10px; transform: rotate(-4deg);">
             <img id="leaf-right-1" src="5.jpg" alt="Portföy Tasarımı">
         </div>
-        <div class="floating-card-absolute" id="card-right-2" data-title="Tasarım" onclick="switchTab('design')" style="top: 74%; right: -25px; transform: rotate(3deg);">
+        <div class="floating-card-absolute" id="card-right-2" data-title="Tasarım" onclick="switchTab('design')" style="top: 74%; right: 35px; transform: rotate(6deg);">
             <img id="leaf-right-2" src="" alt="Portföy Tasarımı" class="hidden">
         </div>
     </div>
