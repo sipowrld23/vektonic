@@ -282,6 +282,7 @@
             gap: 15px;
             max-width: 380px;
             margin: 0 auto;
+            position: relative;
         }
 
         .social-btn {
@@ -297,6 +298,7 @@
             font-size: 0.95rem;
             transition: all 0.25s ease;
             background: var(--card-bg);
+            cursor: pointer;
         }
 
         .social-btn svg {
@@ -312,6 +314,32 @@
             border-color: var(--text-main);
             transform: translateY(-2px);
             box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+        }
+
+        /* E-posta kopyalandı bildirim balonu */
+        .copy-toast {
+            position: absolute;
+            bottom: -45px;
+            left: 50%;
+            transform: translateX(-50%) translateY(10px);
+            background: var(--text-main);
+            color: var(--bg-color);
+            padding: 6px 14px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            border-radius: 8px;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            z-index: 100;
+        }
+
+        .copy-toast.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
         }
 
         /* SHOWCASES */
@@ -470,9 +498,7 @@
         </button>
     </header>
 
-    <!-- JS İLE DOĞRUDAN EKRAN KENARLARINA YAPIŞTIRILAN YAPRAKLAR -->
     <div class="floating-layers-container" id="mainFloatingLayers">
-        <!-- Sol 3 kart (Ortadaki 2. kart ekrandan dışarı taşacak) -->
         <div class="floating-card-absolute" id="card-left-0" data-title="Tasarım" onclick="switchTab('design')" style="top: 22%; left: -25px; transform: rotate(-4deg);">
             <img id="leaf-left-0" src="1.jpg" alt="Portföy Tasarımı">
         </div>
@@ -483,7 +509,6 @@
             <img id="leaf-left-2" src="3.jpg" alt="Portföy Tasarımı">
         </div>
 
-        <!-- Sağ 3 kart (Ortadaki 2. kart ekrandan dışarı taşacak) -->
         <div class="floating-card-absolute" id="card-right-0" data-title="Tasarım" onclick="switchTab('design')" style="top: 22%; right: -25px; transform: rotate(5deg);">
             <img id="leaf-right-0" src="4.jpg" alt="Portföy Tasarımı">
         </div>
@@ -496,7 +521,6 @@
     </div>
 
     <main>
-        <!-- 1. ANA SAYFA HERO & İLETİŞİM -->
         <section id="home" class="section active">
             <div class="home-wrapper">
                 <div class="hero">
@@ -514,16 +538,17 @@
                             WhatsApp İletişim
                         </a>
 
-                        <a href="mailto:iletisim@vektonic.com.tr" class="social-btn">
+                        <!-- E-posta Butonu ve Kopyalama Balonu -->
+                        <a href="mailto:iletisim@vektonic.com.tr" onclick="copyEmail(event)" class="social-btn">
                             <svg viewBox="0 0 24 24"><path d="M0 3v18h24v-18h-24zm6.623 7.929l-4.623 5.712v-9.458l4.623 3.746zm-4.141-5.929h19.035l-9.517 7.713-9.518-7.713zm19.518 10.458l-4.692-5.798 4.692-3.801v9.599zm-10.381 1.542l-5.111-4.143-4.922 6.085h19.034l-4.921-6.085-5.11 4.143z"/></svg>
-                            E-posta Gönder
+                            E-posta Gönder (iletisim@vektonic.com.tr)
                         </a>
+                        <div id="copyToast" class="copy-toast">E-posta adresi kopyalandı!</div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- 2. GRAPHIC DESIGN SHOWCASE -->
         <section id="design" class="section">
             <div class="showcase-header">
                 <h2>Graphic Design Showcase</h2>
@@ -548,7 +573,6 @@
             </div>
         </section>
 
-        <!-- 3. VIDEO SHOWCASE -->
         <section id="video" class="section">
             <div class="showcase-header">
                 <h2>Video Showcase</h2>
@@ -561,7 +585,6 @@
         </section>
     </main>
 
-    <!-- LIGHTBOX -->
     <div id="lightbox" class="lightbox" onclick="closeLightbox()">
         <span class="lightbox-close">&times;</span>
         <img id="lightbox-img" src="" alt="Büyütülmüş Görsel" onclick="event.stopPropagation()">
@@ -590,6 +613,18 @@
                 localStorage.setItem('vektonic_theme', 'dark');
                 btn.textContent = '☀️';
             }
+        }
+
+        // E-posta Kopyalama Fonksiyonu
+        function copyEmail(e) {
+            const email = "iletisim@vektonic.com.tr";
+            navigator.clipboard.writeText(email).then(() => {
+                const toast = document.getElementById('copyToast');
+                toast.classList.add('show');
+                setTimeout(() => {
+                    toast.classList.remove('show');
+                }, 2000);
+            });
         }
 
         function switchTab(tabId) {
@@ -631,7 +666,6 @@
             document.getElementById('lightbox').classList.remove('active');
         }
 
-        // --- YAPRAK YÖNETİMİ & HOVER KONTROLÜ ---
         const portfolioImages = [
             { src: '1.jpg', name: 'Saç Kurutma Makinesi 1' },
             { src: '2.png', name: 'Saç Kurutma Makinesi 2' },
