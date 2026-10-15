@@ -182,7 +182,7 @@
             flex-direction: column;
             align-items: center;
             justify-content: flex-start;
-            padding: 10px 10px 28px 10px; /* Paspartu / Fotoğraf çerçeve efekti */
+            padding: 10px 10px 28px 10px;
         }
 
         /* Duvara İğnelenmiş Raptiye Simgesi */
@@ -332,6 +332,7 @@
             background: var(--card-bg);
             cursor: pointer;
             user-select: none;
+            -webkit-tap-highlight-color: transparent;
         }
 
         .social-btn svg {
@@ -341,7 +342,7 @@
             flex-shrink: 0;
         }
 
-        .social-btn:hover {
+        .social-btn:hover, .social-btn:active {
             background: var(--text-main);
             color: var(--bg-color);
             border-color: var(--text-main);
@@ -460,15 +461,13 @@
         /* ==========================================
            MOBİL UYUMLULUK VE RESPONSIVE DÜZENLEMELER
            ========================================== */
-        @media (max-width: 1100px) {
-            .floating-card-absolute {
-                width: 135px;
-                height: 155px;
-            }
-        }
-
         @media (max-width: 768px) {
-            /* 1. Header & Navigasyon */
+            /* MOBİLDE YAPRAKLAR (FOTOĞRAF KARTLARI) TAMAMEN KALDIRILDI */
+            .floating-layers-container {
+                display: none !important;
+            }
+
+            /* Header & Navigasyon */
             header {
                 padding: 12px 18px;
                 flex-wrap: wrap;
@@ -500,7 +499,7 @@
                 font-size: 1rem;
             }
 
-            /* 2. Main İçerik */
+            /* Main İçerik */
             main {
                 margin-top: 120px;
             }
@@ -531,32 +530,7 @@
                 font-size: 0.9rem;
             }
 
-            /* 3. Yan Fotoğraf Kartları (Mobil Düzeni) */
-            .floating-layers-container {
-                display: block;
-                pointer-events: none;
-            }
-
-            .floating-card-absolute {
-                width: 85px;
-                height: 98px;
-                padding: 5px 5px 14px 5px;
-                opacity: 0.75;
-            }
-
-            .floating-card-absolute::before {
-                width: 8px;
-                height: 8px;
-                top: -4px;
-            }
-
-            /* Kartların Mobildeki Kenar Konumları */
-            #card-left-0 { top: 15%; left: -15px; transform: rotate(-10deg) !important; }
-            #card-left-1 { top: 72%; left: -20px; transform: rotate(8deg) !important; }
-            #card-right-0 { top: 18%; right: -15px; transform: rotate(12deg) !important; }
-            #card-right-1 { top: 75%; right: -20px; transform: rotate(-8deg) !important; }
-
-            /* 4. Showcase & Galeri */
+            /* Showcase & Galeri */
             .showcase-header h2 {
                 font-size: 1.8rem;
             }
@@ -592,7 +566,7 @@
         </button>
     </header>
 
-    <!-- FLOATING LEAVES - 4 ADET DOĞAL VE ASİMETRİK DAĞILMIŞ FOTOĞRAF -->
+    <!-- FLOATING LEAVES - 4 ADET DOĞAL VE ASİMETRİK DAĞILMIŞ FOTOĞRAF (SADECE MASAÜSTÜNDE GÖRÜNÜR) -->
     <div class="floating-layers-container" id="mainFloatingLayers">
         <!-- 1. Sol Üst -->
         <div class="floating-card-absolute" id="card-left-0" data-title="Tasarım" onclick="switchTab('design')" style="top: 22%; left: 3%; transform: rotate(-9deg);">
@@ -622,7 +596,7 @@
                     <p>Ticari markalar, e-ticaret projeleri ve dijital mecralar için profesyonel grafik tasarım, görsel içerik ve video prodüksiyon hizmetleri sunuyoruz.</p>
                     
                     <div class="linktree-container">
-                        <!-- 1. E-POSTA BUTONU -->
+                        <!-- 1. E-POSTA BUTONU (MOBİL UYUMLU KOPYALAMA DESTEKLİ) -->
                         <div onclick="showAndCopyEmail(this)" class="social-btn">
                             <svg viewBox="0 0 24 24"><path d="M0 3v18h24v-18h-24zm6.623 7.929l-4.623 5.712v-9.458l4.623 3.746zm-4.141-5.929h19.035l-9.517 7.713-9.518-7.713zm19.518 10.458l-4.692-5.798 4.692-3.801v9.599zm-10.381 1.542l-5.111-4.143-4.922 6.085h19.034l-4.921-6.085-5.11 4.143z"/></svg>
                             <span class="btn-text">E-posta Gönder</span>
@@ -746,13 +720,43 @@
             }
         }
 
+        // Mobilde ve Masaüstünde Güvenli E-Posta Kopyalama Fonksiyonu
         function showAndCopyEmail(btnElement) {
             const email = "iletisim@vektonic.com.tr";
             const textSpan = btnElement.querySelector('.btn-text');
             
-            navigator.clipboard.writeText(email);
-            textSpan.textContent = email + " (Kopyalandı!)";
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(email).then(() => {
+                    successFeedback(textSpan, email);
+                }).catch(() => {
+                    fallbackCopyText(email, textSpan);
+                });
+            } else {
+                fallbackCopyText(email, textSpan);
+            }
+        }
 
+        function fallbackCopyText(text, textSpan) {
+            const textArea = document.createElement("textarea");
+            textArea.value = text;
+            textArea.style.position = "fixed";  // Ekran dışına taşıyarak kaymayı önle
+            textArea.style.top = "0";
+            textArea.style.left = "0";
+            textArea.style.opacity = "0";
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            try {
+                document.execCommand('copy');
+                successFeedback(textSpan, text);
+            } catch (err) {
+                textSpan.textContent = text; // Kopyalanamazsa ekrana yazdır
+            }
+            document.body.removeChild(textArea);
+        }
+
+        function successFeedback(textSpan, email) {
+            textSpan.textContent = email + " (Kopyalandı!)";
             setTimeout(() => {
                 textSpan.textContent = "E-posta Gönder";
             }, 3000);
