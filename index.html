@@ -240,4 +240,58 @@
                 
                 <div class="linktree-container">
                     <a href="https://instagram.com" target="_blank" class="social-btn">Instagram</a>
-                    <a href="https://wa.me/905000000000" target="_blank" class="social-btn">
+                    <a href="https://wa.me/905000000000" target="_blank" class="social-btn">WhatsApp İletişim</a>
+                    <a href="mailto:iletisim@vektonic.com.tr" class="social-btn">E-posta Gönder</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. GRAPHIC DESIGN SHOWCASE -->
+        <section id="design" class="section">
+            <div class="showcase-header">
+                <h2>Graphic Design Showcase</h2>
+                <p>E-ticaret tasarımları, sosyal medya şablonları ve portfolyo çalışmaları.</p>
+            </div>
+            <div class="grid-container">
+                <div class="grid-item">Görsel Alanı 1 (Yakında)</div>
+                <div class="grid-item">Görsel Alanı 2 (Yakında)</div>
+                <div class="grid-item">Görsel Alanı 3 (Yakında)</div>
+            </div>
+        </section>
+
+        <!-- 3. VIDEO SHOWCASE -->
+        <section id="video" class="section">
+            <div class="showcase-header">
+                <h2>Video Showcase</h2>
+                <p>Tanıtım filmleri, kurgu projeleri ve reklam videoları.</p>
+            </div>
+            <div class="grid-container">
+                <div class="grid-item">Video Alanı 1 (Yakında)</div>
+                <div class="grid-item">Video Alanı 2 (Yakında)</div>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>&copy; 2026 Vektonic. Tüm hakları saklıdır.</p>
+    </footer>
+
+    <!-- TAB SWITCHING SCRIPT -->
+    <script>
+        function switchTab(tabId) {
+            document.querySelectorAll('.section').forEach(sec => {
+                sec.classList.remove('active');
+            });
+            document.getElementById(tabId).classList.add('active');
+
+            document.querySelectorAll('nav a').forEach(nav => {
+                nav.classList.remove('active');
+            });
+            document.getElementById('nav-' + tabId).classList.add('active');
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
