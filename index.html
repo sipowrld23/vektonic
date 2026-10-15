@@ -1,1 +1,230 @@
 
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VEKTONIC | Showcase & Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-color: #08090c;
+            --card-bg: #10121a;
+            --accent-blue: #3b82f6;
+            --accent-glow: rgba(59, 130, 246, 0.25);
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
+            --border-color: #1a1d29;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', system-ui, -apple-system, sans-serif; }
+        body { background-color: var(--bg-color); color: var(--text-main); line-height: 1.6; }
+
+        /* Header */
+        header { 
+            background: rgba(16, 18, 26, 0.85); 
+            backdrop-filter: blur(12px);
+            padding: 1.2rem 2rem; 
+            position: sticky; 
+            top: 0; 
+            z-index: 100;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo { font-size: 1.6rem; font-weight: 800; letter-spacing: 1.5px; color: #fff; }
+        .logo span { color: var(--accent-blue); }
+        .header-btn {
+            background: var(--accent-blue);
+            color: #fff;
+            padding: 0.6rem 1.4rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .header-btn:hover { box-shadow: 0 0 20px var(--accent-glow); transform: translateY(-2px); }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 3rem 1.5rem; }
+
+        /* Hero */
+        .hero { text-align: center; margin-bottom: 4rem; padding: 2rem 0; }
+        .hero h1 { font-size: 2.8rem; font-weight: 800; margin-bottom: 1rem; letter-spacing: -0.5px; }
+        .hero h1 span { color: var(--accent-blue); }
+        .hero p { font-size: 1.1rem; color: var(--text-muted); max-width: 650px; margin: 0 auto; }
+
+        /* Section Titles */
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .section-header i { color: var(--accent-blue); }
+
+        /* Showcase Grids */
+        .showcase-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
+            gap: 1.8rem; 
+            margin-bottom: 5rem; 
+        }
+
+        .showcase-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+        }
+        .showcase-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-blue);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Media Container for Video & Image */
+        .media-container {
+            width: 100%;
+            background: #000;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Dikey Medya Oranı (Mobil/Reels Videoları için) */
+        .vertical-aspect { aspect-ratio: 9 / 16; max-height: 480px; }
+        /* Yatay Medya Oranı (Banner/Görseller için) */
+        .horizontal-aspect { aspect-ratio: 16 / 9; }
+
+        .media-container video, .media-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .card-details { padding: 1.2rem; }
+        .card-details h3 { font-size: 1.1rem; font-weight: 600; margin-bottom: 0.4rem; color: #fff; }
+        .card-details p { font-size: 0.85rem; color: var(--text-muted); }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2.5rem;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            border-top: 1px solid var(--border-color);
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">VEKTONIC<span>.</span></div>
+        <a href="https://wa.me/" class="header-btn" target="_blank">
+            <i class="fa-brands fa-whatsapp"></i> İletişime Geç
+        </a>
+    </header>
+
+    <div class="container">
+
+        <!-- Hero Intro -->
+        <section class="hero">
+            <h1>Creative <span>Showcase</span></h1>
+            <p>E-Ticaret ve dijital markalar için ürettiğimiz sinematik video prodüksiyonları ve yüksek dönüşümlü grafik tasarım portfolyosu.</p>
+        </section>
+
+        <!-- 🎬 VIDEO SHOWCASE (MP4) -->
+        <section>
+            <div class="section-header">
+                <i class="fa-solid fa-clapperboard"></i>
+                <h2>Video Showcase (MP4)</h2>
+            </div>
+
+            <div class="showcase-grid">
+                
+                <!-- Video Kartı 1 -->
+                <div class="showcase-card">
+                    <div class="media-container vertical-aspect">
+                        <!-- Buradaki src alanına mp4 videonun linkini koyacaksın -->
+                        <video controls playsinline preload="metadata">
+                            <source src="video1.mp4" type="video/mp4">
+                            Tarayıcınız video etiketini desteklemiyor.
+                        </video>
+                    </div>
+                    <div class="card-details">
+                        <h3>Sinematik Ürün Tanıtımı</h3>
+                        <p>Dikey Format / Wan 3.0 Prodüksiyon</p>
+                    </div>
+                </div>
+
+                <!-- Video Kartı 2 -->
+                <div class="showcase-card">
+                    <div class="media-container vertical-aspect">
+                        <video controls playsinline preload="metadata">
+                            <source src="video2.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <div class="card-details">
+                        <h3>E-Ticaret Reklam Videosu</h3>
+                        <p>Dikey Format / 1080x1920</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- 🎨 DESIGN SHOWCASE (PNG / JPG) -->
+        <section>
+            <div class="section-header">
+                <i class="fa-solid fa-layer-group"></i>
+                <h2>Design Showcase (PNG / JPG)</h2>
+            </div>
+
+            <div class="showcase-grid">
+
+                <!-- Tasarım Görsel Kartı 1 -->
+                <div class="showcase-card">
+                    <div class="media-container horizontal-aspect">
+                        <!-- Buradaki src alanına PNG/JPG görselinin linkini koyacaksın -->
+                        <img src="gorsel1.png" alt="Web Banner Tasarımı" loading="lazy">
+                    </div>
+                    <div class="card-details">
+                        <h3>Mikro Site Reklam Şeridi</h3>
+                        <p>Web Banner Tasarımı</p>
+                    </div>
+                </div>
+
+                <!-- Tasarım Görsel Kartı 2 -->
+                <div class="showcase-card">
+                    <div class="media-container horizontal-aspect">
+                        <img src="gorsel2.jpg" alt="Ürün Görseli Tasarımı" loading="lazy">
+                    </div>
+                    <div class="card-details">
+                        <h3>Ürün Lansman Görseli</h3>
+                        <p>Social Media & E-Commerce Grafik</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </div>
+
+    <footer>
+        &copy; 2026 Vektonic Digital Media. Tüm hakları saklıdır.
+    </footer>
+
+</body>
+</html>
