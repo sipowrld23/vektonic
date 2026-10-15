@@ -457,33 +457,119 @@
             font-size: 0.85rem;
         }
 
-        @media (max-width: 1200px) {
-            .floating-layers-container {
-                display: none;
+        /* ==========================================
+           MOBİL UYUMLULUK VE RESPONSIVE DÜZENLEMELER
+           ========================================== */
+        @media (max-width: 1100px) {
+            .floating-card-absolute {
+                width: 135px;
+                height: 155px;
             }
         }
 
         @media (max-width: 768px) {
+            /* 1. Header & Navigasyon */
             header {
-                padding: 15px 20px;
+                padding: 12px 18px;
+                flex-wrap: wrap;
+                justify-content: space-between;
             }
+
+            .logo-container img {
+                height: 42px;
+            }
+
             nav {
                 position: static;
                 transform: none;
-                gap: 5px;
+                order: 3;
+                width: 100%;
+                justify-content: center;
+                margin-top: 10px;
+                gap: 6px;
             }
+
             nav a {
-                padding: 8px 12px;
-                font-size: 0.85rem;
+                padding: 6px 14px;
+                font-size: 0.82rem;
             }
+
+            .theme-toggle-btn {
+                width: 38px;
+                height: 38px;
+                font-size: 1rem;
+            }
+
+            /* 2. Main İçerik */
+            main {
+                margin-top: 120px;
+            }
+
             .section {
-                padding: 40px 20px;
+                padding: 20px 16px;
             }
+
             .hero h1 {
-                font-size: 2.2rem;
+                font-size: 2.1rem;
+                letter-spacing: 1px;
+                margin-bottom: 14px;
             }
+
+            .hero p {
+                font-size: 0.95rem;
+                margin-bottom: 28px;
+                padding: 0 10px;
+            }
+
+            .linktree-container {
+                max-width: 100%;
+                padding: 0 10px;
+            }
+
+            .social-btn {
+                padding: 14px 18px;
+                font-size: 0.9rem;
+            }
+
+            /* 3. Yan Fotoğraf Kartları (Mobil Düzeni) */
+            .floating-layers-container {
+                display: block;
+                pointer-events: none;
+            }
+
+            .floating-card-absolute {
+                width: 85px;
+                height: 98px;
+                padding: 5px 5px 14px 5px;
+                opacity: 0.75;
+            }
+
+            .floating-card-absolute::before {
+                width: 8px;
+                height: 8px;
+                top: -4px;
+            }
+
+            /* Kartların Mobildeki Kenar Konumları */
+            #card-left-0 { top: 15%; left: -15px; transform: rotate(-10deg) !important; }
+            #card-left-1 { top: 72%; left: -20px; transform: rotate(8deg) !important; }
+            #card-right-0 { top: 18%; right: -15px; transform: rotate(12deg) !important; }
+            #card-right-1 { top: 75%; right: -20px; transform: rotate(-8deg) !important; }
+
+            /* 4. Showcase & Galeri */
+            .showcase-header h2 {
+                font-size: 1.8rem;
+            }
+
             .grid-container {
-                grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+                grid-template-columns: repeat(auto-fill, minmax(100%, 1fr));
+                gap: 16px;
+            }
+
+            .lightbox-close {
+                top: 15px;
+                right: 20px;
+                font-size: 32px;
             }
         }
     </style>
@@ -508,20 +594,20 @@
 
     <!-- FLOATING LEAVES - 4 ADET DOĞAL VE ASİMETRİK DAĞILMIŞ FOTOĞRAF -->
     <div class="floating-layers-container" id="mainFloatingLayers">
-        <!-- 1. Sol Üst (Yüksek ve eğik) -->
+        <!-- 1. Sol Üst -->
         <div class="floating-card-absolute" id="card-left-0" data-title="Tasarım" onclick="switchTab('design')" style="top: 22%; left: 3%; transform: rotate(-9deg);">
             <img id="leaf-left-0" src="1.jpg" alt="Portföy Tasarımı">
         </div>
-        <!-- 2. Sol Alt (Merkeze biraz daha yakın ve düzce) -->
+        <!-- 2. Sol Alt -->
         <div class="floating-card-absolute" id="card-left-1" data-title="Tasarım" onclick="switchTab('design')" style="top: 60%; left: 7%; transform: rotate(7deg);">
             <img id="leaf-left-1" src="2.png" alt="Portföy Tasarımı">
         </div>
 
-        <!-- 3. Sağ Orta-Üst (Farklı hizada) -->
+        <!-- 3. Sağ Orta-Üst -->
         <div class="floating-card-absolute" id="card-right-0" data-title="Tasarım" onclick="switchTab('design')" style="top: 28%; right: 5%; transform: rotate(-4deg);">
             <img id="leaf-right-0" src="4.jpg" alt="Portföy Tasarımı">
         </div>
-        <!-- 4. Sağ Alt (Kenara yakın ve belirgin eğimli) -->
+        <!-- 4. Sağ Alt -->
         <div class="floating-card-absolute" id="card-right-1" data-title="Tasarım" onclick="switchTab('design')" style="top: 68%; right: 2%; transform: rotate(11deg);">
             <img id="leaf-right-1" src="5.jpg" alt="Portföy Tasarımı">
         </div>
