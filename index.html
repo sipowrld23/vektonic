@@ -1,230 +1,307 @@
-
 <!DOCTYPE html>
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VEKTONIC | Showcase & Portfolio</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Vektonic | Creative Production</title>
     <style>
         :root {
-            --bg-color: #08090c;
-            --card-bg: #10121a;
-            --accent-blue: #3b82f6;
-            --accent-glow: rgba(59, 130, 246, 0.25);
-            --text-main: #f3f4f6;
-            --text-muted: #9ca3af;
-            --border-color: #1a1d29;
+            --bg-color: #ffffff;
+            --text-main: #111111;
+            --text-muted: #666666;
+            --border-color: #eaeaea;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', system-ui, -apple-system, sans-serif; }
-        body { background-color: var(--bg-color); color: var(--text-main); line-height: 1.6; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
 
-        /* Header */
-        header { 
-            background: rgba(16, 18, 26, 0.85); 
-            backdrop-filter: blur(12px);
-            padding: 1.2rem 2rem; 
-            position: sticky; 
-            top: 0; 
-            z-index: 100;
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* HEADER & NAVIGATION */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
             border-bottom: 1px solid var(--border-color);
+            z-index: 1000;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            padding: 18px 40px;
         }
-        .logo { font-size: 1.6rem; font-weight: 800; letter-spacing: 1.5px; color: #fff; }
-        .logo span { color: var(--accent-blue); }
-        .header-btn {
-            background: var(--accent-blue);
-            color: #fff;
-            padding: 0.6rem 1.4rem;
-            border-radius: 50px;
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
             text-decoration: none;
-            font-weight: 600;
-            font-size: 0.9rem;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
+            color: var(--text-main);
         }
-        .header-btn:hover { box-shadow: 0 0 20px var(--accent-glow); transform: translateY(-2px); }
 
-        .container { max-width: 1200px; margin: 0 auto; padding: 3rem 1.5rem; }
+        /* SVG Logo Ayarları */
+        .logo-container img {
+            height: 30px; /* SVG boyutu */
+            width: auto;
+            display: block;
+        }
 
-        /* Hero */
-        .hero { text-align: center; margin-bottom: 4rem; padding: 2rem 0; }
-        .hero h1 { font-size: 2.8rem; font-weight: 800; margin-bottom: 1rem; letter-spacing: -0.5px; }
-        .hero h1 span { color: var(--accent-blue); }
-        .hero p { font-size: 1.1rem; color: var(--text-muted); max-width: 650px; margin: 0 auto; }
-
-        /* Section Titles */
-        .section-header {
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-            font-size: 1.6rem;
+        .logo-text {
             font-weight: 700;
-            margin-bottom: 1.5rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 1px solid var(--border-color);
-        }
-        .section-header i { color: var(--accent-blue); }
-
-        /* Showcase Grids */
-        .showcase-grid { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
-            gap: 1.8rem; 
-            margin-bottom: 5rem; 
+            font-size: 1.25rem;
+            letter-spacing: -0.5px;
         }
 
-        .showcase-card {
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 16px;
-            overflow: hidden;
-            transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
-        }
-        .showcase-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--accent-blue);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        nav {
+            display: flex;
+            gap: 30px;
         }
 
-        /* Media Container for Video & Image */
-        .media-container {
+        nav a {
+            text-decoration: none;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: color 0.2s ease;
+            cursor: pointer;
+        }
+
+        nav a:hover, nav a.active {
+            color: var(--text-main);
+        }
+
+        /* MAIN CONTENT AREA */
+        main {
+            margin-top: 85px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .section {
+            display: none;
+            padding: 60px 40px;
+            max-width: 1200px;
+            margin: 0 auto;
             width: 100%;
-            background: #000;
-            position: relative;
-            overflow: hidden;
+            animation: fadeIn 0.4s ease-in-out;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* SECTION 1: HOME & LINKTREE STYLE CONTACT */
+        .hero {
+            text-align: center;
+            max-width: 700px;
+            margin: 40px auto;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            letter-spacing: -1px;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            margin-bottom: 40px;
+        }
+
+        .linktree-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .social-btn {
             display: flex;
             align-items: center;
             justify-content: center;
+            padding: 16px 24px;
+            border: 1px solid var(--text-main);
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--text-main);
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.2s ease;
+            background: transparent;
         }
 
-        /* Dikey Medya Oranı (Mobil/Reels Videoları için) */
-        .vertical-aspect { aspect-ratio: 9 / 16; max-height: 480px; }
-        /* Yatay Medya Oranı (Banner/Görseller için) */
-        .horizontal-aspect { aspect-ratio: 16 / 9; }
-
-        .media-container video, .media-container img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+        .social-btn:hover {
+            background: var(--text-main);
+            color: var(--bg-color);
         }
 
-        .card-details { padding: 1.2rem; }
-        .card-details h3 { font-size: 1.1rem; font-weight: 600; margin-bottom: 0.4rem; color: #fff; }
-        .card-details p { font-size: 0.85rem; color: var(--text-muted); }
+        /* SECTION 2 & 3: SHOWCASES (GRID LAYOUT) */
+        .showcase-header {
+            margin-bottom: 40px;
+        }
 
-        /* Footer */
+        .showcase-header h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            margin-bottom: 8px;
+        }
+
+        .showcase-header p {
+            color: var(--text-muted);
+            font-size: 1rem;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .grid-item {
+            background: #fafafa;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            overflow: hidden;
+            aspect-ratio: 16 / 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            transition: border-color 0.2s ease;
+        }
+
+        .grid-item:hover {
+            border-color: var(--text-main);
+        }
+
+        /* FOOTER */
         footer {
+            border-top: 1px solid var(--border-color);
+            padding: 30px 40px;
             text-align: center;
-            padding: 2.5rem;
             color: var(--text-muted);
             font-size: 0.85rem;
-            border-top: 1px solid var(--border-color);
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            header {
+                padding: 15px 20px;
+            }
+            .section {
+                padding: 40px 20px;
+            }
+            .hero h1 {
+                font-size: 2rem;
+            }
+            .grid-container {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
 
+    <!-- HEADER / LOGO & NAVIGATION -->
     <header>
-        <div class="logo">VEKTONIC<span>.</span></div>
-        <a href="https://wa.me/" class="header-btn" target="_blank">
-            <i class="fa-brands fa-whatsapp"></i> İletişime Geç
+        <a href="#" class="logo-container" onclick="switchTab('home')">
+            <!-- SVG Logo Dosyası -->
+            <img src="logo.svg" alt="Vektonic Logo" onerror="this.style.display='none'">
+            <span class="logo-text">vektonic</span>
         </a>
+        <nav>
+            <a onclick="switchTab('home')" id="nav-home" class="active">Ana Sayfa</a>
+            <a onclick="switchTab('design')" id="nav-design">Graphic Design</a>
+            <a onclick="switchTab('video')" id="nav-video">Video Showcase</a>
+        </nav>
     </header>
 
-    <div class="container">
-
-        <!-- Hero Intro -->
-        <section class="hero">
-            <h1>Creative <span>Showcase</span></h1>
-            <p>E-Ticaret ve dijital markalar için ürettiğimiz sinematik video prodüksiyonları ve yüksek dönüşümlü grafik tasarım portfolyosu.</p>
-        </section>
-
-        <!-- 🎬 VIDEO SHOWCASE (MP4) -->
-        <section>
-            <div class="section-header">
-                <i class="fa-solid fa-clapperboard"></i>
-                <h2>Video Showcase (MP4)</h2>
-            </div>
-
-            <div class="showcase-grid">
+    <!-- CONTENT -->
+    <main>
+        <!-- 1. ANA SAYFA & İLETİŞİM -->
+        <section id="home" class="section active">
+            <div class="hero">
+                <h1>Dijital Çözümler & Görsel Üretim</h1>
+                <p>Ticari markalar, e-ticaret projeleri ve dijital mecralar için profesyonel grafik tasarım, görsel içerik ve video prodüksiyon hizmetleri sunuyoruz.</p>
                 
-                <!-- Video Kartı 1 -->
-                <div class="showcase-card">
-                    <div class="media-container vertical-aspect">
-                        <!-- Buradaki src alanına mp4 videonun linkini koyacaksın -->
-                        <video controls playsinline preload="metadata">
-                            <source src="video1.mp4" type="video/mp4">
-                            Tarayıcınız video etiketini desteklemiyor.
-                        </video>
-                    </div>
-                    <div class="card-details">
-                        <h3>Sinematik Ürün Tanıtımı</h3>
-                        <p>Dikey Format / Wan 3.0 Prodüksiyon</p>
-                    </div>
+                <div class="linktree-container">
+                    <a href="https://instagram.com" target="_blank" class="social-btn">Instagram</a>
+                    <a href="https://wa.me/905000000000" target="_blank" class="social-btn">WhatsApp İletişim</a>
+                    <a href="mailto:iletisim@vektonic.com.tr" class="social-btn">E-posta Gönder</a>
                 </div>
-
-                <!-- Video Kartı 2 -->
-                <div class="showcase-card">
-                    <div class="media-container vertical-aspect">
-                        <video controls playsinline preload="metadata">
-                            <source src="video2.mp4" type="video/mp4">
-                        </video>
-                    </div>
-                    <div class="card-details">
-                        <h3>E-Ticaret Reklam Videosu</h3>
-                        <p>Dikey Format / 1080x1920</p>
-                    </div>
-                </div>
-
             </div>
         </section>
 
-        <!-- 🎨 DESIGN SHOWCASE (PNG / JPG) -->
-        <section>
-            <div class="section-header">
-                <i class="fa-solid fa-layer-group"></i>
-                <h2>Design Showcase (PNG / JPG)</h2>
+        <!-- 2. GRAPHIC DESIGN SHOWCASE -->
+        <section id="design" class="section">
+            <div class="showcase-header">
+                <h2>Graphic Design Showcase</h2>
+                <p>E-ticaret tasarımları, sosyal medya şablonları ve portfolyo çalışmaları.</p>
             </div>
-
-            <div class="showcase-grid">
-
-                <!-- Tasarım Görsel Kartı 1 -->
-                <div class="showcase-card">
-                    <div class="media-container horizontal-aspect">
-                        <!-- Buradaki src alanına PNG/JPG görselinin linkini koyacaksın -->
-                        <img src="gorsel1.png" alt="Web Banner Tasarımı" loading="lazy">
-                    </div>
-                    <div class="card-details">
-                        <h3>Mikro Site Reklam Şeridi</h3>
-                        <p>Web Banner Tasarımı</p>
-                    </div>
-                </div>
-
-                <!-- Tasarım Görsel Kartı 2 -->
-                <div class="showcase-card">
-                    <div class="media-container horizontal-aspect">
-                        <img src="gorsel2.jpg" alt="Ürün Görseli Tasarımı" loading="lazy">
-                    </div>
-                    <div class="card-details">
-                        <h3>Ürün Lansman Görseli</h3>
-                        <p>Social Media & E-Commerce Grafik</p>
-                    </div>
-                </div>
-
+            <div class="grid-container">
+                <div class="grid-item">Görsel Alanı 1 (Yakında)</div>
+                <div class="grid-item">Görsel Alanı 2 (Yakında)</div>
+                <div class="grid-item">Görsel Alanı 3 (Yakında)</div>
             </div>
         </section>
 
-    </div>
+        <!-- 3. VIDEO SHOWCASE -->
+        <section id="video" class="section">
+            <div class="showcase-header">
+                <h2>Video Showcase</h2>
+                <p>Tanıtım filmleri, kurgu projeleri ve reklam videoları.</p>
+            </div>
+            <div class="grid-container">
+                <div class="grid-item">Video Alanı 1 (Yakında)</div>
+                <div class="grid-item">Video Alanı 2 (Yakında)</div>
+            </div>
+        </section>
+    </main>
 
+    <!-- FOOTER -->
     <footer>
-        &copy; 2026 Vektonic Digital Media. Tüm hakları saklıdır.
+        <p>&copy; 2026 Vektonic. Tüm hakları saklıdır.</p>
     </footer>
 
+    <!-- TAB SWITCHING SCRIPT -->
+    <script>
+        function switchTab(tabId) {
+            document.querySelectorAll('.section').forEach(sec => {
+                sec.classList.remove('active');
+            });
+            document.getElementById(tabId).classList.add('active');
+
+            document.querySelectorAll('nav a').forEach(nav => {
+                nav.classList.remove('active');
+            });
+            document.getElementById('nav-' + tabId).classList.add('active');
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
 </body>
 </html>
