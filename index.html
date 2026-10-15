@@ -28,20 +28,18 @@
             min-height: 100vh;
         }
 
-        /* HEADER & NAVIGATION */
-        header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid var(--border-color);
-            z-index: 1000;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 18px 40px;
+    <!-- HEADER / LOGO & NAVIGATION -->
+    <header>
+        <a href="#" class="logo-container" onclick="switchTab('home')">
+            <!-- Sadece SVG Logosu (Yandaki metin kaldırıldı) -->
+            <img src="logo.svg" alt="Vektonic Logo">
+        </a>
+        <nav>
+            <a onclick="switchTab('home')" id="nav-home" class="active">Ana Sayfa</a>
+            <a onclick="switchTab('design')" id="nav-design">Graphic Design</a>
+            <a onclick="switchTab('video')" id="nav-video">Video Showcase</a>
+        </nav>
+    </header>
         }
 
         .logo-container {
