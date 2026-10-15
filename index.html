@@ -239,7 +239,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            pointer-events: none; /* Arkadaki içeriklerin tıklanmasını engellemesin */
+            pointer-events: none;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -251,7 +251,7 @@
             display: flex;
             flex-direction: column;
             gap: 25px;
-            pointer-events: auto; /* Kartlar tıklanabilir olsun */
+            pointer-events: auto;
         }
 
         .floating-card {
@@ -285,7 +285,6 @@
             transform: scale(1.05);
         }
 
-        /* Sol ve Sağ katmanların hafif organik konumlandırılması */
         .floating-column.left .floating-card:nth-child(1) { transform: rotate(-3deg); }
         .floating-column.left .floating-card:nth-child(2) { transform: rotate(2deg) translateX(15px); }
         .floating-column.right .floating-card:nth-child(1) { transform: rotate(3deg); }
@@ -401,7 +400,7 @@
         /* RESPONSIVE */
         @media (max-width: 1024px) {
             .floating-layers {
-                display: none; /* Mobilde ve küçük ekranlarda sade görünüm için gizlenir */
+                display: none;
             }
         }
 
@@ -452,24 +451,24 @@
         <!-- 1. ANA SAYFA & YAN KATMANLAR -->
         <section id="home" class="section active">
             <div class="home-wrapper">
-                <!-- Sol Taraftaki Değişken Tasarım Katmanları -->
+                <!-- Sol Taraftaki Tasarım Katmanları -->
                 <div class="floating-layers">
                     <div class="floating-column left">
                         <div class="floating-card" onclick="switchTab('design')">
-                            <img src="assets/1.jpg" alt="Tasarım 1">
+                            <img src="1.jpg" alt="Tasarım 1">
                         </div>
                         <div class="floating-card" onclick="switchTab('design')">
-                            <img src="assets/2.png" alt="Tasarım 2">
+                            <img src="2.png" alt="Tasarım 2">
                         </div>
                     </div>
                     
-                    <!-- Sağ Taraftaki Değişken Tasarım Katmanları -->
+                    <!-- Sağ Taraftaki Tasarım Katmanları -->
                     <div class="floating-column right">
                         <div class="floating-card" onclick="switchTab('design')">
-                            <img src="assets/3.jpg" alt="Tasarım 3">
+                            <img src="3.jpg" alt="Tasarım 3">
                         </div>
                         <div class="floating-card" onclick="switchTab('design')">
-                            <img src="assets/4.jpg" alt="Tasarım 4">
+                            <img src="4.jpg" alt="Tasarım 4">
                         </div>
                     </div>
                 </div>
@@ -509,20 +508,20 @@
                 <p>E-ticaret ürün tasarımları, reklam görselleri ve sosyal medya çalışmaları.</p>
             </div>
             <div class="grid-container">
-                <div class="grid-item" onclick="openLightbox('assets/1.jpg')">
-                    <img src="assets/1.jpg" alt="Saç Kurutma Makinesi Tasarımı 1">
+                <div class="grid-item" onclick="openLightbox('1.jpg')">
+                    <img src="1.jpg" alt="Saç Kurutma Makinesi Tasarımı 1">
                 </div>
-                <div class="grid-item" onclick="openLightbox('assets/2.png')">
-                    <img src="assets/2.png" alt="Saç Kurutma Makinesi Tasarımı 2">
+                <div class="grid-item" onclick="openLightbox('2.png')">
+                    <img src="2.png" alt="Saç Kurutma Makinesi Tasarımı 2">
                 </div>
-                <div class="grid-item" onclick="openLightbox('assets/3.jpg')">
-                    <img src="assets/3.jpg" alt="Eğitim Kampanyası Tasarımı">
+                <div class="grid-item" onclick="openLightbox('3.jpg')">
+                    <img src="3.jpg" alt="Eğitim Kampanyası Tasarımı">
                 </div>
-                <div class="grid-item" onclick="openLightbox('assets/4.jpg')">
-                    <img src="assets/4.jpg" alt="Aesthetic Organics Cilt Bakımı">
+                <div class="grid-item" onclick="openLightbox('4.jpg')">
+                    <img src="4.jpg" alt="Aesthetic Organics Cilt Bakımı">
                 </div>
-                <div class="grid-item" onclick="openLightbox('assets/5.jpg')">
-                    <img src="assets/5.jpg" alt="Perfectionist Plus Vücut Losyonu">
+                <div class="grid-item" onclick="openLightbox('5.jpg')">
+                    <img src="5.jpg" alt="Perfectionist Plus Vücut Losyonu">
                 </div>
             </div>
         </section>
