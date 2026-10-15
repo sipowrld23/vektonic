@@ -138,49 +138,37 @@
             transform: scale(1.05);
         }
 
-        /* EKRAN KENARLARINA SABİTLENMİŞ BAĞIMSIZ YAPRAKLAR */
-        .floating-layers {
-            position: fixed !important;
-            top: 100px;
-            bottom: 20px;
+        /* JAVASCRIPT İLE EKRANA SABİTLENEN DIŞA TAŞAN YAPRAKLAR */
+        .floating-layers-container {
+            position: fixed;
+            top: 0;
             left: 0;
-            right: 0;
             width: 100vw;
+            height: 100vh;
             pointer-events: none;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 10px;
-            z-index: 100;
-            transition: opacity 0.3s ease;
+            z-index: 50;
+            overflow: hidden;
         }
 
-        .floating-column {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            gap: 20px;
-            pointer-events: auto;
-        }
-
-        .floating-card {
-            width: 150px;
-            height: 150px;
+        .floating-card-absolute {
+            position: absolute;
+            width: 155px;
+            height: 155px;
             border-radius: 18px;
             overflow: hidden;
             border: 1px solid var(--border-color);
             box-shadow: var(--floating-shadow);
             cursor: pointer;
-            transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease;
             background: var(--card-bg);
             backdrop-filter: blur(8px);
-            position: relative;
+            pointer-events: auto;
             display: flex;
             align-items: center;
             justify-content: center;
         }
 
-        .floating-card img {
+        .floating-card-absolute img {
             width: 100%;
             height: 100%;
             object-fit: cover;
@@ -188,31 +176,30 @@
             transition: opacity 0.6s ease-in-out, transform 0.4s ease;
         }
 
-        .floating-card img.hidden {
+        .floating-card-absolute img.hidden {
             opacity: 0;
             pointer-events: none;
         }
 
-        /* HOVER: Büyüme & Parlama */
-        .floating-card:hover {
-            transform: scale(1.15) translateY(-6px) !important;
+        .floating-card-absolute:hover {
+            transform: scale(1.12) !important;
             border-color: var(--text-main);
-            box-shadow: 0 25px 50px rgba(0,0,0,0.25);
-            z-index: 150;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+            z-index: 100;
         }
 
-        .floating-card:hover img {
+        .floating-card-absolute:hover img {
             transform: scale(1.06);
         }
 
-        /* GÖRSEL ÜSTÜ BAŞLIK (TOOLTIP) */
-        .floating-card::after {
+        /* Tooltip */
+        .floating-card-absolute::after {
             content: attr(data-title);
             position: absolute;
-            bottom: 10px;
+            bottom: 8px;
             left: 50%;
             transform: translateX(-50%) translateY(10px);
-            background: rgba(0, 0, 0, 0.78);
+            background: rgba(0, 0, 0, 0.8);
             color: #ffffff;
             padding: 4px 10px;
             font-size: 0.75rem;
@@ -226,20 +213,11 @@
             z-index: 10;
         }
 
-        .floating-card:hover::after {
+        .floating-card-absolute:hover::after {
             opacity: 1;
             visibility: visible;
             transform: translateX(-50%) translateY(0);
         }
-
-        /* Dışa Taşma Pozisyonları */
-        .floating-column.left .floating-card:nth-child(1) { transform: rotate(-4deg) translateX(0px); }
-        .floating-column.left .floating-card:nth-child(2) { transform: rotate(5deg) translateX(-80px); } /* Sol dışa taşma */
-        .floating-column.left .floating-card:nth-child(3) { transform: rotate(-3deg) translateX(0px); }
-        
-        .floating-column.right .floating-card:nth-child(1) { transform: rotate(5deg) translateX(0px); }
-        .floating-column.right .floating-card:nth-child(2) { transform: rotate(-5deg) translateX(80px); } /* Sağ dışa taşma */
-        .floating-column.right .floating-card:nth-child(3) { transform: rotate(3deg) translateX(0px); }
 
         /* MAIN CONTENT AREA */
         main {
@@ -248,6 +226,7 @@
             display: flex;
             flex-direction: column;
             position: relative;
+            z-index: 10;
         }
 
         .section {
@@ -268,7 +247,7 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* SECTION 1: HERO & İLETİŞİM */
+        /* HERO & İLETİŞİM */
         .home-wrapper {
             position: relative;
             min-height: 75vh;
@@ -335,7 +314,7 @@
             box-shadow: 0 6px 20px rgba(0,0,0,0.08);
         }
 
-        /* SECTION 2 & 3: SHOWCASES */
+        /* SHOWCASES */
         .showcase-header {
             margin-bottom: 40px;
         }
@@ -442,9 +421,8 @@
             font-size: 0.85rem;
         }
 
-        /* RESPONSIVE */
-        @media (max-width: 1300px) {
-            .floating-layers {
+        @media (max-width: 1200px) {
+            .floating-layers-container {
                 display: none;
             }
         }
@@ -492,30 +470,28 @@
         </button>
     </header>
 
-    <!-- KAPSAYICILARDAN BAĞIMSIZ, TAM EKRAN KATMANI -->
-    <div class="floating-layers" id="mainFloatingLayers">
-        <div class="floating-column left">
-            <div class="floating-card" id="card-left-0" data-title="Tasarım" onclick="switchTab('design')">
-                <img id="leaf-left-0" src="1.jpg" alt="Portföy Tasarımı">
-            </div>
-            <div class="floating-card" id="card-left-1" data-title="Tasarım" onclick="switchTab('design')">
-                <img id="leaf-left-1" src="2.png" alt="Portföy Tasarımı">
-            </div>
-            <div class="floating-card" id="card-left-2" data-title="Tasarım" onclick="switchTab('design')">
-                <img id="leaf-left-2" src="3.jpg" alt="Portföy Tasarımı">
-            </div>
+    <!-- JS İLE DOĞRUDAN EKRAN KENARLARINA YAPIŞTIRILAN YAPRAKLAR -->
+    <div class="floating-layers-container" id="mainFloatingLayers">
+        <!-- Sol 3 kart (Ortadaki 2. kart ekrandan dışarı taşacak) -->
+        <div class="floating-card-absolute" id="card-left-0" data-title="Tasarım" onclick="switchTab('design')" style="top: 22%; left: -25px; transform: rotate(-4deg);">
+            <img id="leaf-left-0" src="1.jpg" alt="Portföy Tasarımı">
         </div>
-        
-        <div class="floating-column right">
-            <div class="floating-card" id="card-right-0" data-title="Tasarım" onclick="switchTab('design')">
-                <img id="leaf-right-0" src="4.jpg" alt="Portföy Tasarımı">
-            </div>
-            <div class="floating-card" id="card-right-1" data-title="Tasarım" onclick="switchTab('design')">
-                <img id="leaf-right-1" src="5.jpg" alt="Portföy Tasarımı">
-            </div>
-            <div class="floating-card" id="card-right-2" data-title="Tasarım" onclick="switchTab('design')">
-                <img id="leaf-right-2" src="" alt="Portföy Tasarımı" class="hidden">
-            </div>
+        <div class="floating-card-absolute" id="card-left-1" data-title="Tasarım" onclick="switchTab('design')" style="top: 48%; left: -65px; transform: rotate(5deg);">
+            <img id="leaf-left-1" src="2.png" alt="Portföy Tasarımı">
+        </div>
+        <div class="floating-card-absolute" id="card-left-2" data-title="Tasarım" onclick="switchTab('design')" style="top: 74%; left: -25px; transform: rotate(-3deg);">
+            <img id="leaf-left-2" src="3.jpg" alt="Portföy Tasarımı">
+        </div>
+
+        <!-- Sağ 3 kart (Ortadaki 2. kart ekrandan dışarı taşacak) -->
+        <div class="floating-card-absolute" id="card-right-0" data-title="Tasarım" onclick="switchTab('design')" style="top: 22%; right: -25px; transform: rotate(5deg);">
+            <img id="leaf-right-0" src="4.jpg" alt="Portföy Tasarımı">
+        </div>
+        <div class="floating-card-absolute" id="card-right-1" data-title="Tasarım" onclick="switchTab('design')" style="top: 48%; right: -65px; transform: rotate(-5deg);">
+            <img id="leaf-right-1" src="5.jpg" alt="Portföy Tasarımı">
+        </div>
+        <div class="floating-card-absolute" id="card-right-2" data-title="Tasarım" onclick="switchTab('design')" style="top: 74%; right: -25px; transform: rotate(3deg);">
+            <img id="leaf-right-2" src="" alt="Portföy Tasarımı" class="hidden">
         </div>
     </div>
 
@@ -671,7 +647,7 @@
         ];
 
         const hoveredCards = {};
-        document.querySelectorAll('.floating-card').forEach(card => {
+        document.querySelectorAll('.floating-card-absolute').forEach(card => {
             const cardId = card.id;
             card.addEventListener('mouseenter', () => hoveredCards[cardId] = true);
             card.addEventListener('mouseleave', () => hoveredCards[cardId] = false);
@@ -712,7 +688,7 @@
             const rightImgEl = document.getElementById(slot.rightImg);
 
             const currentlyVisibleImages = [];
-            document.querySelectorAll('.floating-card img').forEach(img => {
+            document.querySelectorAll('.floating-card-absolute img').forEach(img => {
                 if (!img.classList.contains('hidden') && img.src) {
                     const filename = img.src.substring(img.src.lastIndexOf('/') + 1);
                     if (filename && img !== leftImgEl && img !== rightImgEl) {
