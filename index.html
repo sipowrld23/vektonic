@@ -28,39 +28,33 @@
             min-height: 100vh;
         }
 
-    <!-- HEADER / LOGO & NAVIGATION -->
-    <header>
-        <a href="#" class="logo-container" onclick="switchTab('home')">
-            <!-- Sadece SVG Logosu (Yandaki metin kaldırıldı) -->
-            <img src="logo.svg" alt="Vektonic Logo">
-        </a>
-        <nav>
-            <a onclick="switchTab('home')" id="nav-home" class="active">Ana Sayfa</a>
-            <a onclick="switchTab('design')" id="nav-design">Graphic Design</a>
-            <a onclick="switchTab('video')" id="nav-video">Video Showcase</a>
-        </nav>
-    </header>
+        /* HEADER & NAVIGATION */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 40px;
         }
 
         .logo-container {
             display: flex;
             align-items: center;
-            gap: 10px;
             text-decoration: none;
-            color: var(--text-main);
         }
 
         /* SVG Logo Ayarları */
         .logo-container img {
-            height: 30px; /* SVG boyutu */
+            height: 28px; /* Logonun ekrandaki yüksekliği */
             width: auto;
             display: block;
-        }
-
-        .logo-text {
-            font-weight: 700;
-            font-size: 1.25rem;
-            letter-spacing: -0.5px;
         }
 
         nav {
@@ -227,9 +221,7 @@
     <!-- HEADER / LOGO & NAVIGATION -->
     <header>
         <a href="#" class="logo-container" onclick="switchTab('home')">
-            <!-- SVG Logo Dosyası -->
-            <img src="logo.svg" alt="Vektonic Logo" onerror="this.style.display='none'">
-            <span class="logo-text">vektonic</span>
+            <img src="logo.svg" alt="Vektonic Logo">
         </a>
         <nav>
             <a onclick="switchTab('home')" id="nav-home" class="active">Ana Sayfa</a>
@@ -248,58 +240,4 @@
                 
                 <div class="linktree-container">
                     <a href="https://instagram.com" target="_blank" class="social-btn">Instagram</a>
-                    <a href="https://wa.me/905000000000" target="_blank" class="social-btn">WhatsApp İletişim</a>
-                    <a href="mailto:iletisim@vektonic.com.tr" class="social-btn">E-posta Gönder</a>
-                </div>
-            </div>
-        </section>
-
-        <!-- 2. GRAPHIC DESIGN SHOWCASE -->
-        <section id="design" class="section">
-            <div class="showcase-header">
-                <h2>Graphic Design Showcase</h2>
-                <p>E-ticaret tasarımları, sosyal medya şablonları ve portfolyo çalışmaları.</p>
-            </div>
-            <div class="grid-container">
-                <div class="grid-item">Görsel Alanı 1 (Yakında)</div>
-                <div class="grid-item">Görsel Alanı 2 (Yakında)</div>
-                <div class="grid-item">Görsel Alanı 3 (Yakında)</div>
-            </div>
-        </section>
-
-        <!-- 3. VIDEO SHOWCASE -->
-        <section id="video" class="section">
-            <div class="showcase-header">
-                <h2>Video Showcase</h2>
-                <p>Tanıtım filmleri, kurgu projeleri ve reklam videoları.</p>
-            </div>
-            <div class="grid-container">
-                <div class="grid-item">Video Alanı 1 (Yakında)</div>
-                <div class="grid-item">Video Alanı 2 (Yakında)</div>
-            </div>
-        </section>
-    </main>
-
-    <!-- FOOTER -->
-    <footer>
-        <p>&copy; 2026 Vektonic. Tüm hakları saklıdır.</p>
-    </footer>
-
-    <!-- TAB SWITCHING SCRIPT -->
-    <script>
-        function switchTab(tabId) {
-            document.querySelectorAll('.section').forEach(sec => {
-                sec.classList.remove('active');
-            });
-            document.getElementById(tabId).classList.add('active');
-
-            document.querySelectorAll('nav a').forEach(nav => {
-                nav.classList.remove('active');
-            });
-            document.getElementById('nav-' + tabId).classList.add('active');
-
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-    </script>
-</body>
-</html>
+                    <a href="https://wa.me/905000000000" target="_blank" class="social-btn">
