@@ -8,16 +8,26 @@
     <!-- DİNAMİK FAVICON (SADECE SOL SİMGE) -->
     <link id="favicon" rel="icon" type="image/svg+xml" href="logo.svg">
 
+    <!-- ZARİF SERİF BAŞLIK FONTU (GÖRSELDEN ANALİZ EDİLEN) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
     <style>
         :root {
-            --bg-color: #ffffff;
-            --text-main: #111111;
-            --text-muted: #666666;
-            --border-color: #eaeaea;
-            --hover-bg: #f5f5f7;
-            --card-bg: #fafafa;
-            --logo-filter: none;
-            --floating-shadow: 0 15px 35px rgba(0,0,0,0.08);
+            /* Görselden Analiz Edilen Sıcak Krem/Kâğıt Paleti */
+            --bg-color: #f3eee8;
+            --text-main: #1c241e;
+            --text-muted: #5e635f;
+            --border-color: #e2dcd4;
+            --hover-bg: #e8e2d8;
+            --card-bg: #f9f6f0;
+            --logo-filter: none; /* Sol üstteki logonun orijinal rengi korundu */
+            --floating-shadow: 0 15px 35px rgba(50, 45, 35, 0.07);
+            
+            /* Tipografi Tanımları */
+            --font-heading: 'Cormorant Garamond', Georgia, serif;
+            --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
         }
 
         /* Karanlık Mod Renkleri */
@@ -36,7 +46,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            font-family: var(--font-body);
             transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
         }
 
@@ -57,7 +67,7 @@
             left: 0;
             width: 100%;
             background: var(--bg-color);
-            opacity: 0.95;
+            opacity: 0.96;
             backdrop-filter: blur(12px);
             border-bottom: 1px solid var(--border-color);
             z-index: 1000;
@@ -112,7 +122,7 @@
             background: var(--hover-bg);
             border-color: var(--border-color);
             transform: scale(1.06);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
         }
 
         nav a.active {
@@ -188,7 +198,7 @@
         .floating-card-absolute:hover {
             transform: scale(1.12) !important;
             border-color: var(--text-main);
-            box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
             z-index: 100;
         }
 
@@ -203,7 +213,7 @@
             bottom: 8px;
             left: 50%;
             transform: translateX(-50%) translateY(10px);
-            background: rgba(0, 0, 0, 0.8);
+            background: rgba(30, 30, 30, 0.85);
             color: #ffffff;
             padding: 4px 10px;
             font-size: 0.75rem;
@@ -263,22 +273,25 @@
 
         .hero {
             text-align: center;
-            max-width: 560px;
+            max-width: 600px;
             margin: 0 auto;
             z-index: 10;
         }
 
         .hero h1 {
-            font-size: 2.5rem;
+            font-family: var(--font-heading);
+            font-size: 3rem;
             font-weight: 700;
-            letter-spacing: -1px;
-            margin-bottom: 20px;
+            letter-spacing: 2px;
+            margin-bottom: 18px;
+            text-transform: uppercase;
         }
 
         .hero p {
             color: var(--text-muted);
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             margin-bottom: 35px;
+            line-height: 1.7;
         }
 
         .linktree-container {
@@ -318,7 +331,7 @@
             color: var(--bg-color);
             border-color: var(--text-main);
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.06);
         }
 
         /* SHOWCASES */
@@ -327,9 +340,10 @@
         }
 
         .showcase-header h2 {
-            font-size: 2rem;
+            font-family: var(--font-heading);
+            font-size: 2.4rem;
             font-weight: 700;
-            letter-spacing: -0.5px;
+            letter-spacing: 1px;
             margin-bottom: 8px;
         }
 
@@ -369,7 +383,7 @@
         .grid-item:hover {
             border-color: var(--text-main);
             transform: translateY(-4px);
-            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
         }
 
         .grid-item:hover img {
@@ -451,7 +465,7 @@
                 padding: 40px 20px;
             }
             .hero h1 {
-                font-size: 2rem;
+                font-size: 2.2rem;
             }
             .grid-container {
                 grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
@@ -606,7 +620,6 @@
                 canvas.width = 64;
                 canvas.height = 64;
                 const ctx = canvas.getContext('2d');
-                // Sadece sol taraftaki ikonu kırparak faviconda göster
                 ctx.drawImage(img, 0, 0, img.height, img.height, 0, 0, 64, 64);
                 document.getElementById('favicon').href = canvas.toDataURL('image/png');
             };
