@@ -232,7 +232,7 @@
             box-shadow: 0 6px 20px rgba(0,0,0,0.08);
         }
 
-        /* YAN KATMANLAR (SOL VE SAĞ BOŞLUKLARA ORTalanmış 3'erLİ YAPRAKLAR) */
+        /* YAN KATMANLAR (SOL VE SAĞ BOŞLUKLARA ORTALANMIŞ 3'ERLİ YAPRAKLAR) */
         .floating-layers {
             position: absolute;
             top: 0;
@@ -273,7 +273,7 @@
             height: 100%;
             object-fit: cover;
             display: block;
-            transition: opacity 0.8s ease-in-out, transform 0.4s ease;
+            transition: opacity 0.5s ease-in-out, transform 0.4s ease;
         }
 
         .floating-card:hover {
@@ -609,34 +609,35 @@
             document.getElementById('lightbox').classList.remove('active');
         }
 
-        // PORTFÖY GÖRSELLERİ ARASINDA 3 SANİYEDE BİR RASTGELE YUMUŞAK GEÇİŞ (FADE) DÖNGÜSÜ
+        // PORTFÖY GÖRSELLERİ ARASINDA 3 SANİYEDE BİR 6 YAPRAĞIN HEPSİNİ AYNI ANDA DEĞİŞTİRME
         const portfolioImages = ['1.jpg', '2.png', '3.jpg', '4.jpg', '5.jpg'];
         const leafIds = [
             'leaf-left-0', 'leaf-left-1', 'leaf-left-2',
             'leaf-right-0', 'leaf-right-1', 'leaf-right-2'
         ];
 
-        function rotateRandomLeaf() {
-            // Rastgele bir yaprak seç
-            const randomLeafId = leafIds[Math.floor(Math.random() * leafIds.length)];
-            const imgElement = document.getElementById(randomLeafId);
-            if (!imgElement) return;
+        function rotateAllLeavesTogether() {
+            const leafElements = leafIds.map(id => document.getElementById(id)).filter(el => el !== null);
 
-            // Rastgele bir portföy görseli seç (şu ankinden farklı olmaya çalışsın)
-            let randomImg = portfolioImages[Math.floor(Math.random() * portfolioImages.length)];
-            
-            // Yumuşak karartma (fade out)
-            imgElement.style.opacity = '0';
+            // 1. Tüm yaprakları aynı anda yumuşakça karart (fade out)
+            leafElements.forEach(el => el.style.opacity = '0');
 
+            // 2. Kararma tamamlanınca (500ms) yeni rastgele görselleri ata ve tekrar parlat (fade in)
             setTimeout(() => {
-                imgElement.src = randomImg;
-                // Yumuşak belirme (fade in)
-                imgElement.style.opacity = '1';
-            }, 400); // 400ms geçiş süresi
+                // Rastgele sıralanmış bir portföy listesi oluştur
+                const shuffled = [...portfolioImages].sort(() => 0.5 - Math.random());
+
+                leafElements.forEach((el, index) => {
+                    // Liste biterse başa dönecek şekilde döngüsel atama
+                    const newImg = shuffled[index % shuffled.length];
+                    el.src = newImg;
+                    el.style.opacity = '1';
+                });
+            }, 500);
         }
 
-        // Her 3 saniyede bir yapraklardan birini rastgele değiştir
-        setInterval(rotateRandomLeaf, 3000);
+        // Her 3 saniyede bir 6 yaprağın Hepsini Birden Değiştir
+        setInterval(rotateAllLeavesTogether, 3000);
     </script>
 </body>
 </html>
