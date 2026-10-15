@@ -165,7 +165,7 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* SECTION 1: HOME & 3'ERLİ DİNAMİK YAN KATMANLAR */
+        /* SECTION 1: HOME & 3'ERLİ DİNAMİK YAPRAKLAR */
         .home-wrapper {
             position: relative;
             min-height: 75vh;
@@ -232,7 +232,7 @@
             box-shadow: 0 6px 20px rgba(0,0,0,0.08);
         }
 
-        /* YAN KATMANLAR (SOL VE SAĞ BOŞLUKLARA ORTALANMIŞ 3'ERLİ YAPRAKLAR) */
+        /* YAN KATMANLAR */
         .floating-layers {
             position: absolute;
             top: 0;
@@ -456,7 +456,7 @@
         <!-- 1. ANA SAYFA & 3'ERLİ DİNAMİK YAPRAKLAR -->
         <section id="home" class="section active">
             <div class="home-wrapper">
-                <!-- Sol Taraftaki 3'lü Yaprak Kolonu -->
+                <!-- Sol ve Sağ 3'erli Yaprak Kolonları -->
                 <div class="floating-layers">
                     <div class="floating-column left">
                         <div class="floating-card" onclick="switchTab('design')">
@@ -470,7 +470,6 @@
                         </div>
                     </div>
                     
-                    <!-- Sağ Taraftaki 3'lü Yaprak Kolonu -->
                     <div class="floating-column right">
                         <div class="floating-card" onclick="switchTab('design')">
                             <img id="leaf-right-0" src="4.jpg" alt="Portföy Görseli">
@@ -609,35 +608,69 @@
             document.getElementById('lightbox').classList.remove('active');
         }
 
-        // PORTFÖY GÖRSELLERİ ARASINDA 3 SANİYEDE BİR 6 YAPRAĞIN HEPSİNİ AYNI ANDA DEĞİŞTİRME
+        // PORTFÖY GÖRSELLERİ VE SIRALI SENKRON DEĞİŞİM (ÇAKIŞMASIZ)
+        // Yeni görseller ekledikçe bu diziye eklemen yeterlidir.
         const portfolioImages = ['1.jpg', '2.png', '3.jpg', '4.jpg', '5.jpg'];
-        const leafIds = [
-            'leaf-left-0', 'leaf-left-1', 'leaf-left-2',
-            'leaf-right-0', 'leaf-right-1', 'leaf-right-2'
+        
+        // Çiftler: [Sol Index, Sağ Index] -> 0: Üst, 1: Orta, 2: Alt
+        const pairs = [
+            { left: 'leaf-left-0', right: 'leaf-right-0' }, // 1. Çift (Üstler)
+            { left: 'leaf-left-1', right: 'leaf-right-1' }, // 2. Çift (Ortalar)
+            { left: 'leaf-left-2', right: 'leaf-right-2' }  // 3. Çift (Altlar)
         ];
 
-        function rotateAllLeavesTogether() {
-            const leafElements = leafIds.map(id => document.getElementById(id)).filter(el => el !== null);
+        let currentPairIndex = 0;
 
-            // 1. Tüm yaprakları aynı anda yumuşakça karart (fade out)
-            leafElements.forEach(el => el.style.opacity = '0');
+        function rotateNextPair() {
+            const pair = pairs[currentPairIndex];
+            const leftEl = document.getElementById(pair.left);
+            const rightEl = document.getElementById(pair.right);
 
-            // 2. Kararma tamamlanınca (500ms) yeni rastgele görselleri ata ve tekrar parlat (fade in)
+            if (!leftEl || !rightEl) return;
+
+            // Ekranda şu an aktif olarak BULUNAN tüm görselleri topla (çakışmayı önlemek için)
+            const activeImages = [];
+            ['leaf-left-0', 'leaf-left-1', 'leaf-left-2', 'leaf-right-0', 'leaf-right-1', 'leaf-right-2'].forEach(id => {
+                const el = document.getElementById(id);
+                if (el) {
+                    // src yolundan sadece dosya adını al
+                    const parts = el.src.split('/');
+                    activeImages.push(parts[parts.length - 1]);
+                }
+            });
+
+            // Kullanılabilir havuzdan şu an ekranda OLMAYANLARI filtrele
+            let availableImages = portfolioImages.filter(img => !activeImages.includes(img));
+            
+            // Eğer yeterli görsel yoksa havuzu baştan aç
+            if (availableImages.length < 2) {
+                availableImages = [...portfolioImages];
+            }
+
+            // Havuzdan rastgele 2 farklı görsel seç
+            const shuffled = [...availableImages].sort(() => 0.5 - Math.random());
+            const newLeftImg = shuffled[0];
+            const newRightImg = shuffled[1] || shuffled[0];
+
+            // Yumuşakça karart (Fade out)
+            leftEl.style.opacity = '0';
+            rightEl.style.opacity = '0';
+
             setTimeout(() => {
-                // Rastgele sıralanmış bir portföy listesi oluştur
-                const shuffled = [...portfolioImages].sort(() => 0.5 - Math.random());
+                leftEl.src = newLeftImg;
+                rightEl.src = newRightImg;
 
-                leafElements.forEach((el, index) => {
-                    // Liste biterse başa dönecek şekilde döngüsel atama
-                    const newImg = shuffled[index % shuffled.length];
-                    el.src = newImg;
-                    el.style.opacity = '1';
-                });
-            }, 500);
+                // Yumuşakça belir (Fade in)
+                leftEl.style.opacity = '1';
+                rightEl.style.opacity = '1';
+            }, 400);
+
+            // Sonraki çifte geç (0 -> 1 -> 2 -> 0 şeklinde döner)
+            currentPairIndex = (currentPairIndex + 1) % pairs.length;
         }
 
-        // Her 3 saniyede bir 6 yaprağın Hepsini Birden Değiştir
-        setInterval(rotateAllLeavesTogether, 3000);
+        // Her 3 saniyede bir sırayla bir çifti (Sol & Sağ eşzamanlı) değiştir
+        setInterval(rotateNextPair, 3000);
     </script>
 </body>
 </html>
